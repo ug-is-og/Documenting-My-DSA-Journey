@@ -60,20 +60,39 @@
 // agar slow and fast never collide, toh cycle doesn't exist, if slow, fast collide cycle exists
 // https://youtu.be/354J83hX7RI
 
+// public class Solution {
+//     public boolean hasCycle(ListNode head) {
+//         if(head==null||head.next==null) // number of nodes kya hai uske basis pe kya kya
+//         // edge cases ban sakte dhyan se soch liya karo
+//         return false;
+//         ListNode slow=head;
+//         ListNode fast=head.next.next;
+//         while(fast!=null&&fast.next!=null) // pehli condition false ho gayi toh agli condition
+//         // check hi nahi hogi, this is the importance of order here
+//         {
+//             if(slow==fast)
+//             return true;
+//             slow=slow.next;
+//             fast=fast.next.next;
+//         }
+//         return false;
+//     }
+// }
+
+
+// upar wali approach ko thoda sa aur optimize karenge bas ham
+
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        if(head==null||head.next==null) // number of nodes kya hai uske basis pe kya kya
-        // edge cases ban sakte dhyan se soch liya karo
-        return false;
         ListNode slow=head;
-        ListNode fast=head.next.next;
+        ListNode fast=head;
         while(fast!=null&&fast.next!=null) // pehli condition false ho gayi toh agli condition
         // check hi nahi hogi, this is the importance of order here
         {
-            if(slow==fast)
-            return true;
             slow=slow.next;
             fast=fast.next.next;
+            if(slow==fast)
+            return true;
         }
         return false;
     }
