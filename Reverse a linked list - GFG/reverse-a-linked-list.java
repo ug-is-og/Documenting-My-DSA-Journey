@@ -133,25 +133,55 @@ class Node {
 //     }
 // }
 
-// trying the recursive approach once
+// trying the recursive approach once (this is basically based on the above approah itself)
+// agar dhyan se socho toh yeh top down approach hai hamari
 
+// class Solution
+// {
+//     Node reverseList(Node head)
+//     {
+//         Node prev=head;
+//         Node slow=head.next;
+//         prev.next=null;
+//         return reverse(prev,slow);
+//     }
+//     Node reverse(Node prev,Node slow)
+//     {
+//         if(slow==null)
+//         return prev;
+//         Node temp=slow.next;
+//         slow.next=prev;
+//         prev=slow;
+//         slow=temp;
+//         return reverse(prev,slow);
+//     }
+// }
+
+// ab sochte hai bottom up approach
+
+class reverse{
+    Node globalHead;
+    Node localTail;
+    public reverse(Node localTail,Node globalHead)
+    {
+        this.localTail=localTail;
+        this.globalHead=globalHead;
+    }
+}
 class Solution
 {
     Node reverseList(Node head)
     {
-        Node prev=head;
-        Node slow=head.next;
-        prev.next=null;
-        return reverse(prev,slow);
+        reverse obj=helper(head);
+        obj.localTail.next=null; // yeh statement nahi daaloge toh TLE aa jayega
+        return obj.globalHead;
     }
-    Node reverse(Node prev,Node slow)
+    reverse helper(Node head)
     {
-        if(slow==null)
-        return prev;
-        Node temp=slow.next;
-        slow.next=prev;
-        prev=slow;
-        slow=temp;
-        return reverse(prev,slow);
+        if(head==null||head.next==null)
+        return new reverse(head,head);
+        reverse obj=helper(head.next);
+        obj.localTail.next=head;
+        return new reverse(head,obj.globalHead);
     }
 }
