@@ -110,23 +110,48 @@ class Node {
 // approach mein kiya hai but there's a better way of doing stuff here
 // tum values na sochke yeh socho ki harr ek link ko kaise swap kar sakte ho, tab zaada chamkega
 
+// pointers reverse karne wali approach hai yeh
+
+// class Solution
+// {
+//     Node reverseList(Node head)
+//     {
+//         Node prev=null;
+//         Node slow=null;
+//         prev=head;
+//         slow=head.next;
+//         Node temp=null;
+//         prev.next=null;
+//         while(slow!=null)
+//         {
+//             temp=slow.next;
+//             slow.next=prev;
+//             prev=slow;
+//             slow=temp;
+//         }
+//         return prev;
+//     }
+// }
+
+// trying the recursive approach once
+
 class Solution
 {
     Node reverseList(Node head)
     {
-        Node prev=null;
-        Node slow=null;
-        prev=head;
-        slow=head.next;
-        Node temp=null;
+        Node prev=head;
+        Node slow=head.next;
         prev.next=null;
-        while(slow!=null)
-        {
-            temp=slow.next;
-            slow.next=prev;
-            prev=slow;
-            slow=temp;
-        }
+        return reverse(prev,slow);
+    }
+    Node reverse(Node prev,Node slow)
+    {
+        if(slow==null)
         return prev;
+        Node temp=slow.next;
+        slow.next=prev;
+        prev=slow;
+        slow=temp;
+        return reverse(prev,slow);
     }
 }
