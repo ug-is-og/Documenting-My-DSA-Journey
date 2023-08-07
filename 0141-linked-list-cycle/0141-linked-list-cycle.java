@@ -91,7 +91,8 @@ public class Solution {
         {
             slow=slow.next;
             fast=fast.next.next;
-            if(slow==fast)
+            if(slow==fast) // yeh condition just upar likhne mein dikkat thi kyunki loop mein ghuste hi condition true ho ja ri bina traverse kare ...pehle aur usko
+            // sahi karne ke chakkar mein aur zaada complications kar di thi humne
             return true;
         }
         return false;
