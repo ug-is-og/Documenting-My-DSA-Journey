@@ -6,6 +6,33 @@
 // debug karne mein laga diya just because tumne paper pen pe nahi likhke dekha,
 // thoda patience maintain karo bhai, bhot dikkar hogi
 
+// yeh wala snippet of code bhi kaafi badhiya hai for condition part,
+
+//  bool solve(vector<int>& nums,vector<int> &dp,int idx)
+//     {
+//         int n=nums.size();
+//         if(idx==nums.size())
+//         return 1;
+//         if(dp[idx]!=-1)
+//         return dp[idx];
+//         if(idx+1<n && nums[idx]==nums[idx+1])
+//         {
+//             if(solve(nums,dp,idx+2))
+//             return dp[idx]=1;
+//         }
+//         if(idx+2<n && nums[idx]==nums[idx+1] && nums[idx+1]==nums[idx+2])
+//         {
+//             if(solve(nums,dp,idx+3))
+//             return dp[idx]=1;
+//         }
+//         if(idx+2<n && nums[idx]+1==nums[idx+1] && nums[idx+1]+1==nums[idx+2])
+//         {
+//             if(solve(nums,dp,idx+3))
+//             return dp[idx]=1;
+//         }
+//         return dp[idx]=0;
+//     }
+
 class Solution {
     public boolean validPartition(int[] nums) {
         int dp[]=new int[nums.length+1];
