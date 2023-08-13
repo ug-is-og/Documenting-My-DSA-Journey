@@ -32,11 +32,7 @@ class Solution {
             if(nums[i]==nums[i+1]-1)
             count2++;
             if((i==index&&count1==2)||(i==index+1&&count1==3)||count2==3)
-            {
-                System.out.println(i+2);
-                ans=ans||helper(i+2,nums,dp);
-                System.out.println("Hello ji");
-            }
+            ans=ans||helper(i+2,nums,dp);
         }
         if(ans==true)
         dp[index]=1;
