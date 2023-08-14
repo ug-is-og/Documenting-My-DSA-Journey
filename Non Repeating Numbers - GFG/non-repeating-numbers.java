@@ -36,22 +36,67 @@ class GFG
 //User function Template for Java
 
 // trying in O(n logn) time
+
+// class Solution
+// {
+//     public int[] singleNumber(int[] nums)
+//     {
+//         int ans[]=new int[2];
+//         int k=0;
+//         Arrays.sort(nums);
+//         for(int i=1;i<nums.length;i++)
+//         {
+//             if(nums[i]==nums[i-1])
+//             i++;
+//             else
+//             ans[k++]=nums[i-1];
+//         }
+//         if(k==1)
+//         ans[k]=nums[nums.length-1];
+//         return ans;
+//     }
+// }
+
+// can also do in O(n) time and O(n) space easily using hashmap
+
+// O(n^2) mein bhi ho jayega yeh question
+
+// let's do it in O(n) time and O(1) space
+// using bit manipulation
+
+
 class Solution
 {
     public int[] singleNumber(int[] nums)
     {
         int ans[]=new int[2];
-        int k=0;
-        Arrays.sort(nums);
-        for(int i=1;i<nums.length;i++)
+        int xxory=0;
+        for(int i=0;i<nums.length;i++)
+        xxory=xxory^nums[i];
+        int rsbm=xxory&-xxory;
+        int x=0,y=0;
+        for(int i=0;i<nums.length;i++)
         {
-            if(nums[i]==nums[i-1])
-            i++;
+            if((nums[i]&rsbm)==0)
+            {
+                x=x^nums[i];
+            }
             else
-            ans[k++]=nums[i-1];
+            {
+                y=y^nums[i];
+            }
         }
-        if(k==1)
-        ans[k]=nums[nums.length-1];
+        if(x<y)
+        {
+            ans[0]=x;
+            ans[1]=y;
+        }
+        else
+        {
+            ans[0]=y;
+            ans[1]=x;
+        }
         return ans;
     }
 }
+
