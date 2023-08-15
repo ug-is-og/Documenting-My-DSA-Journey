@@ -31,12 +31,20 @@ class Solution {
             }
             head=head.next;
         }
-        head2=head2.next;
-        head1=head1.next;
-        temp2.next=null;// yeh nahi karoge toh cycle aa sakti linked list mein
-        if(temp1==dummy1) // yeh sochna bhot zaruri hai ki agar dono mein se ek bhi list khali hui ya dono hi list khali hui toh kya karoge
-        return head2;
-        temp1.next=head2;
-        return head1;
+        // to avoid all of the clutter done below
+
+        // head2=head2.next;
+        // head1=head1.next;
+        // temp2.next=null;// yeh nahi karoge toh cycle aa sakti linked list mein
+        // if(temp1==dummy1) // yeh sochna bhot zaruri hai ki agar dono mein se ek bhi list khali hui ya dono hi list khali hui toh kya karoge
+        // return head2;
+        // temp1.next=head2;
+        // return head1;
+
+        // use just thee 3 lines
+
+        temp2.next=null;
+        temp1.next=head2.next;
+        return head1.next;
     }
 }
