@@ -28,6 +28,8 @@
 // }
 
 // optimal approach
+// dry run using this example: [1,2,2,3,4,4]
+// Striver: https://youtu.be/RIn3gOkbhQE
 
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
