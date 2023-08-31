@@ -16,7 +16,7 @@ class Solution
     {
         int low=0,mid=0,high=a.length-1;
         int temp=0;
-        while(mid<=high)
+        while(mid<=high) // < nahi hoga <= hi hoga
         {
             switch(a[mid])
             {
@@ -34,7 +34,7 @@ class Solution
                     temp=a[mid];
                     a[mid]=a[high];
                     a[high]=temp;
-                 //   mid++;
+                 //   mid++;       // mid++ nahi karna hai yahan pe
                     high--;
             }
         }
