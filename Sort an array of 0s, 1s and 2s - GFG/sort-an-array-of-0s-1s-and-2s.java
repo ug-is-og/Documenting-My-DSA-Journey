@@ -8,21 +8,23 @@ import java.util.*;
 // } Driver Code Ends
 //User function template for Java
 
+// Dutch National Flag Algorithm
+
 class Solution
 {
     public static void sort012(int a[], int n)
     {
-        int lo=0,mid=0,high=a.length-1;
+        int low=0,mid=0,high=a.length-1;
         int temp=0;
         while(mid<=high)
         {
             switch(a[mid])
             {
                 case 0:
-                    temp=a[lo];
-                    a[lo]=a[mid];
+                    temp=a[low];
+                    a[low]=a[mid];
                     a[mid]=temp;
-                    lo++;
+                    low++;
                     mid++;
                     break;
                 case 1:
@@ -32,8 +34,8 @@ class Solution
                     temp=a[mid];
                     a[mid]=a[high];
                     a[high]=temp;
+                 //   mid++;
                     high--;
-                    break;
             }
         }
     }
