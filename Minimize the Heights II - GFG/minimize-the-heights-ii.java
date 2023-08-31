@@ -38,7 +38,9 @@ class Solution {
         // kyunki difference ko minimize karna hai
         int min=arr[0]+k;
         int max=arr[n-1]-k;
-        int diff=arr[n-1]-arr[0]; // this is one possible ans, now we have to take into account other possible answers and then find minimum ans
+        int diff=arr[n-1]-arr[0]; // this is just for initialisation, isn't a possible ans as operation is not yet performed
+        // agar in any case yeh loop ke andar ghusa hi nahi toh return this diff
+        // question padhoge toh usme aesa kahi nahi likha, par ab yahi fact hai
         for(int i=1;i<n;i++)
         {
             if(arr[i]-k<0)
