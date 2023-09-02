@@ -5,7 +5,8 @@ class Solution {
         int[] pows = new int[n];
         pows[0] = 1;
         for (int i = 1 ; i < n ; ++i)
-            pows[i] = pows[i - 1] * 2 % mod;
+            pows[i] = pows[i - 1] * 2 % mod; // can do this step using binary exponentiation 
+        // for O(log n) complexity
         while (l <= r) {
             if (nums[l] + nums[r] > target) {
                 r--;
