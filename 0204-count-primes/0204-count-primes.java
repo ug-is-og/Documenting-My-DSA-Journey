@@ -39,7 +39,7 @@ class Solution {
             {
                 count++; // ek yeh optimization kari taaki 2 baar loop na chalana pade
                 if(((long)i*i)<n) // agar yeh nahi kiya toh i*i int ki range ke bahar ja sakta, negative h jayega toh <n toh ho hi gaya par jab uss array index ko access karoge toh error aayega due negative array index
-                    for(int j=i*i;j<n;j+=i)
+                    for(int j=i*i;j<n;j+=i) // I am considering the possibility ki yahan pe j+=i karne par woh int ki range ke bahar nahi jayega, kyunki agar aesa hua toh fir woh negative se chalu kar dega aur hame error milne lagegi
                 {
                     a[j]=0;
                 }
