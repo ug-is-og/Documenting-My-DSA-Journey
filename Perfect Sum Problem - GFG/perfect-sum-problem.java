@@ -61,67 +61,67 @@ class GfG
 
 // Approach 2- (Memoization on approach) (n to 0)-------------------------------------->
 
-class Solution{
-    public int perfectSum(int arr[], int n,int sum)
-    {
-        int dp[][]=new int[n+1][sum+1];
-        for(int temp[]:dp)
-        Arrays.fill(temp,-1);
-        return helper(arr,n,sum,dp);
-    }
-    public int helper(int arr[],int n,int sum,int dp[][])
-    {
-        if(sum==0)
-	   {
-	       int countZeros=0;
-	       for(int i=1;i<=n;i++)
-	       {
-	           if(arr[i-1]==0)
-	           countZeros++;
-	       }
-	       return (int)Math.pow(2,countZeros)*1;
-	   }
-	   if(n==0)
-	   return 0;
-	   if(dp[n][sum]!=-1)
-	   return dp[n][sum];
-	   int ways=0;
-	   //pick and non pick condition
-	   if(arr[n-1]<=sum)
-	   ways=(helper(arr,n-1,sum-arr[n-1],dp)+helper(arr,n-1,sum,dp))%1000000007;
-	   else
-	   ways=helper(arr,n-1,sum,dp)%1000000007;
-	   return dp[n][sum]=ways%1000000007;
-    }
-}
+// class Solution{
+//     public int perfectSum(int arr[], int n,int sum)
+//     {
+//         int dp[][]=new int[n+1][sum+1];
+//         for(int temp[]:dp)
+//         Arrays.fill(temp,-1);
+//         return helper(arr,n,sum,dp);
+//     }
+//     public int helper(int arr[],int n,int sum,int dp[][])
+//     {
+//         if(sum==0)
+// 	   {
+// 	       int countZeros=0;
+// 	       for(int i=1;i<=n;i++)
+// 	       {
+// 	           if(arr[i-1]==0)
+// 	           countZeros++;
+// 	       }
+// 	       return (int)Math.pow(2,countZeros)*1;
+// 	   }
+// 	   if(n==0)
+// 	   return 0;
+// 	   if(dp[n][sum]!=-1)
+// 	   return dp[n][sum];
+// 	   int ways=0;
+// 	   //pick and non pick condition
+// 	   if(arr[n-1]<=sum)
+// 	   ways=(helper(arr,n-1,sum-arr[n-1],dp)+helper(arr,n-1,sum,dp))%1000000007;
+// 	   else
+// 	   ways=helper(arr,n-1,sum,dp)%1000000007;
+// 	   return dp[n][sum]=ways%1000000007;
+//     }
+// }
 
 
 // Approach 3 (Tabulation)(n to 0) ------------------------------------------------->
 
 
-// class Solution{
-//     public int perfectSum(int arr[],int n,int sum)
-//     {
-//         int dp[][]=new int[n+1][sum+1];
-//         int k=1;
-//         //initialisation using base condition of recursion 
-//         for(int i=0;i<n+1;i++)
-//         {
-//             if(i>0&&arr[i-1]==0)
-//             k=k*2;
-//             dp[i][0]=k;
-//         }
-//         //tabulation
-//         for(int i=1;i<n+1;i++)
-//         {
-//             for(int j=1;j<sum+1;j++)
-//             {
-//                 if(j>=arr[i-1])
-//                 dp[i][j]=(dp[i-1][j-arr[i-1]]+dp[i-1][j])%1000000007;
-//                 else
-//                 dp[i][j]=dp[i-1][j]%1000000007;
-//             }
-//         }
-//         return dp[n][sum]%1000000007;
-//     }
-// }
+class Solution{
+    public int perfectSum(int arr[],int n,int sum)
+    {
+        int dp[][]=new int[n+1][sum+1];
+        int k=1;
+        //initialisation using base condition of recursion 
+        for(int i=0;i<n+1;i++)
+        {
+            if(i>0&&arr[i-1]==0)
+            k=k*2;
+            dp[i][0]=k;
+        }
+        //tabulation
+        for(int i=1;i<n+1;i++)
+        {
+            for(int j=1;j<sum+1;j++)
+            {
+                if(j>=arr[i-1])
+                dp[i][j]=(dp[i-1][j-arr[i-1]]+dp[i-1][j])%1000000007;
+                else
+                dp[i][j]=dp[i-1][j]%1000000007;
+            }
+        }
+        return dp[n][sum]%1000000007;
+    }
+}
