@@ -20,3 +20,6 @@ class Solution {
         return ans;
     }
 }
+
+
+// another approach to do this question is by simply finding nC0, nC1, ...nCn and adding them to a list 
