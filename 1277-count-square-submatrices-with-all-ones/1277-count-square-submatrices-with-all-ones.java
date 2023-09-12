@@ -6,38 +6,74 @@
 
 // ab hame sochna hai ki dp kaise lag ri yahan pe 
 
+// class Solution {
+//     public int countSquares(int[][] matrix) {
+//         int count=0;
+//         for(int i=0;i<matrix.length;i++)
+//         {
+//             for(int j=0;j<matrix[0].length;j++)
+//             {
+//                 if(matrix[i][j]==1)
+//                 {
+//                     count=count+1+helper(matrix,i,j,i+1,j+1);
+//                 }
+//             }
+//         }
+//         return count;
+//     }
+//     public int helper(int matrix[][],int oi,int oj,int i,int j)
+//     {
+//         if(!(i<matrix.length&&j<matrix[0].length))
+//         {
+//             return 0;
+//         }
+//         int count=0;
+//         for(int m=oi;m<=i;m++)
+//         {
+//             for(int n=oj;n<=j;n++)
+//             {
+//                 if(matrix[m][n]!=1)
+//                 {
+//                     return 0;
+//                 }
+//             }
+//         }
+//         return 1+helper(matrix,oi,oj,i+1,j+1);
+//     }
+// }
+
+// upar wali recursive approach pe dp lagane ka koi faayda hi nahi
+// watch this video carefully
+// https://youtu.be/auS1fynpnjo
+
 class Solution {
     public int countSquares(int[][] matrix) {
-        int count=0;
+        int dp[][]=new int[matrix.length][matrix[0].length];
+        int sum=0;
+        //initialization
         for(int i=0;i<matrix.length;i++)
         {
-            for(int j=0;j<matrix[0].length;j++)
-            {
-                if(matrix[i][j]==1)
-                {
-                    count=count+1+helper(matrix,i,j,i+1,j+1);
-                }
-            }
+          dp[i][0]=matrix[i][0];
         }
-        return count;
-    }
-    public int helper(int matrix[][],int oi,int oj,int i,int j)
-    {
-        if(!(i<matrix.length&&j<matrix[0].length))
+        for(int j=0;j<matrix[0].length;j++)
         {
-            return 0;
+          dp[0][j]=matrix[0][j];
         }
-        int count=0;
-        for(int m=oi;m<=i;m++)
+        for(int i=1;i<dp.length;i++)
         {
-            for(int n=oj;n<=j;n++)
-            {
-                if(matrix[m][n]!=1)
-                {
-                    return 0;
-                }
-            }
+          for(int j=1;j<dp[0].length;j++)
+          {
+            if(matrix[i][j]==1)
+            dp[i][j]=Math.min(dp[i][j-1],Math.min(dp[i-1][j-1],dp[i-1][j]))+1;
+          }
         }
-        return 1+helper(matrix,oi,oj,i+1,j+1);
+        for(int i=0;i<dp.length;i++)
+        {
+          for(int j=0;j<dp[0].length;j++)
+          {
+            sum=sum+dp[i][j];
+          }
+        }
+        return sum;
     }
 }
