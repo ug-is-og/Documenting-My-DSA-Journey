@@ -112,50 +112,78 @@
 
 
 
+// class Solution {
+//     public int coinChange(int[] coins, int amount) {
+//         int dp[][]=new int[amount+1][coins.length+1];
+//         for(int temp[]:dp)
+//         Arrays.fill(temp,-1);
+//         int ans=helper(coins,amount,coins.length,dp);
+//         if(ans>10000)
+//         return -1;
+//         return ans;
+//     }
+//     public int helper(int coins[],int amount,int index,int dp[][])
+//     {
+//         if(index==0)
+//         {
+//             if(amount==0)
+//             return 0;
+//             else
+//             return 100000;
+//         }
+//         if(dp[amount][index]!=-1)
+//         {
+//             return dp[amount][index];
+//         }
+//         int way1=Integer.MAX_VALUE,way2=Integer.MAX_VALUE,ans=Integer.MAX_VALUE;
+//         if(amount>=coins[index-1])
+//         {
+//             way1=1+helper(coins,amount-coins[index-1],index,dp);
+//             way2=helper(coins,amount,index-1,dp);
+//             ans=Math.min(way1,way2);
+//         }
+//         else
+//         {
+//             ans=helper(coins,amount,index-1,dp);
+//         }
+//         return dp[amount][index]=ans;
+//     }
+// }
+
+
+
+
+
+
+// solution using 1d array
+// https://www.youtube.com/watch?v=A3FHNCAkhxE
 class Solution {
     public int coinChange(int[] coins, int amount) {
-        int dp[][]=new int[amount+1][coins.length+1];
-        for(int temp[]:dp)
-        Arrays.fill(temp,-1);
-        int ans=helper(coins,amount,coins.length,dp);
-        if(ans>10000)
+        int dp[]=new int[amount+1];
+        Arrays.fill(dp,-1);
+        int ans=helper(coins,amount,dp);
+        if(ans==Integer.MAX_VALUE)
         return -1;
         return ans;
     }
-    public int helper(int coins[],int amount,int index,int dp[][])
+    public int helper(int coins[],int amount,int dp[])
     {
-        if(index==0)
+        if(amount==0)
+        return 0;
+        if(amount<0)
+        return Integer.MAX_VALUE;
+        if(dp[amount]!=-1)
+        return dp[amount];
+        int min=Integer.MAX_VALUE,res=Integer.MAX_VALUE;
+        for(int i=0;i<coins.length;i++)
         {
-            if(amount==0)
-            return 0;
-            else
-            return 100000;
+            res=helper(coins,amount-coins[i],dp);
+            if(res!=Integer.MAX_VALUE)
+            min=Math.min(min,1+res);
         }
-        if(dp[amount][index]!=-1)
-        {
-            return dp[amount][index];
-        }
-        int way1=Integer.MAX_VALUE,way2=Integer.MAX_VALUE,ans=Integer.MAX_VALUE;
-        if(amount>=coins[index-1])
-        {
-            way1=1+helper(coins,amount-coins[index-1],index,dp);
-            way2=helper(coins,amount,index-1,dp);
-            ans=Math.min(way1,way2);
-        }
-        else
-        {
-            ans=helper(coins,amount,index-1,dp);
-        }
-        return dp[amount][index]=ans;
+        return dp[amount]=min;
     }
 }
-
-
-
-
-
-
-
 
 
 
