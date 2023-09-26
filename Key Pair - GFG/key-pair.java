@@ -38,21 +38,32 @@ public class Main {
 class Solution {
     boolean hasArrayTwoCandidates(int arr[], int n, int x) {
         // using 2 sum approach
-        Arrays.sort(arr);
-        int l=0,r=n-1;
-        while(l<r)
+        // Arrays.sort(arr);
+        // int l=0,r=n-1;
+        // while(l<r)
+        // {
+        //     int tempSum=arr[l]+arr[r];
+        //     if(tempSum==x)
+        //     return true;
+        //     else if(tempSum>x)
+        //     {
+        //         r--;
+        //     }
+        //     else
+        //     {
+        //         l++;
+        //     }
+        // }
+        // return false;
+        
+        // using hashMap approach
+        
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for(int a:arr)
         {
-            int tempSum=arr[l]+arr[r];
-            if(tempSum==x)
+            if(map.containsKey(x-a))
             return true;
-            else if(tempSum>x)
-            {
-                r--;
-            }
-            else
-            {
-                l++;
-            }
+            map.put(a,1);
         }
         return false;
     }
