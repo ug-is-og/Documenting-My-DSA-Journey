@@ -51,11 +51,11 @@ class Solution
         ans.add(matrix[0][j]);
         for(int i=1;i<n;i++)
         ans.add(matrix[i][m-1]);
-        if(n==1)
+        if(n==1) // very important consition 1
         return ans;
         for(int j=m-2;j>=0;j--)
         ans.add(matrix[n-1][j]);
-        if(m==1)
+        if(m==1) // very important condition 2
         return ans;
         for(int i=n-2;i>=1;i--)
         ans.add(matrix[i][0]);
