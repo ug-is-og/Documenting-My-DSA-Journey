@@ -19,6 +19,28 @@ class GFG {
 // } Driver Code Ends
 
 
+// Brute approach
+
+// class Solution {
+//     int distinctSubsequences(String S) {
+//         Set<String> set=new HashSet<>();
+//         helper(S,set,0,"");
+//         return set.size();
+//     }
+//     public void helper(String S,Set<String> set,int index,String temp)
+//     {
+//         if(index==S.length())
+//         {
+//             set.add(temp);
+//             return;
+//         }
+//         helper(S,set,index+1,temp);
+//         helper(S,set,index+1,temp+S.charAt(index));
+//     }
+// }
+
+
+
 // https://www.youtube.com/watch?v=9UEHPiK53BA
 // yeh video dekhlo crystal clear samajh aa jayega
 // bhai mere mod bhot important cheez hai, please bhot carefulyy deal kiya karo jahan pe bhi 10^9+7 ya long jaisi cheezein involve ho jaaye
@@ -42,4 +64,7 @@ class Solution {
         return (int)dp[dp.length-1];
     }
 }
+
+
+
 
