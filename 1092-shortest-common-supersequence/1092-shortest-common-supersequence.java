@@ -53,7 +53,7 @@ class Solution {
             }
             else
             {
-                if(dp[i-1][j]>dp[i][j-1]) // bhai kyunki shortest common supersequence chahiye toh uske liye hame at all times longest possible subsequence ki taraf bhagna padega
+                if(dp[i-1][j]>dp[i][j-1]) // yahan pe ek simple sa funda samjho ki agar tum Longest Common Subsequence ke tabulation approach ko backtrack karoge and along with that ek string maintain karte jaoge toh tum longest common supersequence tak pahunch jaoge
                 {
                     ans=str1.charAt(i-1)+ans;
                     i--;
