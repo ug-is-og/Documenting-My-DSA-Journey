@@ -1,47 +1,31 @@
 class Solution {
     public int maxProfit(int[] prices, int fee) {
         int dp[][]=new int[prices.length][2];
-        // 1 denotes buy and 0 denotes sell
-        // also true denotes buy and false denotes sell
         for(int temp[]:dp)
-        Arrays.fill(temp,-1);
-        return helper(prices,0,fee,true,dp);
+        {
+            Arrays.fill(temp,-1);
+        }
+        return helper(prices,fee,0,1,dp); // 1 means buy and 0 means sell
     }
-    public int helper(int prices[],int index,int fee,boolean buy,int dp[][])
+    public int helper(int prices[],int fee,int index,int status,int dp[][])
     {
-        if(index==prices.length)
-        return 0;
-        if(buy)
+        if(index>=prices.length)
         {
-            if(dp[index][1]!=-1)
-            return dp[index][1];
+            return 0;
+        }
+        if(dp[index][status]!=-1)
+        {
+            return dp[index][status];
+        }
+        int ans=0;
+        if(status==1)
+        {
+            ans=Math.max(-prices[index]+helper(prices,fee,index+1,0,dp),helper(prices,fee,index+1,1,dp));
         }
         else
         {
-            if(dp[index][0]!=-1)
-            return dp[index][0];
+            ans=Math.max(prices[index]-fee+helper(prices,fee,index+1,1,dp),helper(prices,fee,index+1,0,dp));
         }
-        int way1=Integer.MIN_VALUE;
-        int way2=Integer.MIN_VALUE;
-        int way3=Integer.MIN_VALUE;
-        int way4=Integer.MIN_VALUE;
-        int ans=Integer.MIN_VALUE;
-        if(buy)
-        {
-            way1=-prices[index]+helper(prices,index+1,fee,false,dp);
-            way2=helper(prices,index+1,fee,buy,dp);
-            ans=Math.max(way1,way2);
-        }
-        else
-        {
-            way3=prices[index]-fee+helper(prices,index+1,fee,true,dp);
-            way4=helper(prices,index+1,fee,buy,dp);
-            ans=Math.max(way3,way4);
-        }
-        if(buy)
-        dp[index][1]=ans;
-        else
-        dp[index][0]=ans;
-        return ans;
+        return dp[index][status]=ans;
     }
 }
