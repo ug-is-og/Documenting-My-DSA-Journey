@@ -32,6 +32,34 @@ class GFG {
 
 // } Driver Code Ends
 
+// 1st method of implementation 
+
+// class Solution {
+//     // Function to return Breadth First Traversal of given graph.
+//     public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+//         ArrayList<Integer> ans=new ArrayList<>();
+//         boolean visited[]=new boolean[V];
+//         Queue<Integer> q=new LinkedList<>();
+//         q.add(0);
+//         visited[0]=true;
+//         while(!q.isEmpty())
+//         {
+//             int temp=q.remove();
+//             ans.add(temp);
+//             for(int i=0;i<adj.get(temp).size();i++)
+//             {
+//                 if(visited[adj.get(temp).get(i)]!=true)
+//                 {
+//                     visited[adj.get(temp).get(i)]=true;
+//                     q.add(adj.get(temp).get(i));
+//                 }
+//             }
+//         }
+//         return ans;
+//     }
+// }
+
+// 2nd method of implementation
 
 class Solution {
     // Function to return Breadth First Traversal of given graph.
@@ -40,18 +68,21 @@ class Solution {
         boolean visited[]=new boolean[V];
         Queue<Integer> q=new LinkedList<>();
         q.add(0);
-        visited[0]=true;
         while(!q.isEmpty())
         {
             int temp=q.remove();
-            ans.add(temp);
-            for(int i=0;i<adj.get(temp).size();i++)
+            if(visited[temp]==false)
             {
-                if(visited[adj.get(temp).get(i)]!=true)
+                visited[temp]=true;
+                ans.add(temp);
+                for(int i=0;i<adj.get(temp).size();i++)
                 {
-                    visited[adj.get(temp).get(i)]=true;
-                    q.add(adj.get(temp).get(i));
+                    if(visited[adj.get(temp).get(i)]!=true)
+                    {
+                        q.add(adj.get(temp).get(i));
+                    }
                 }
+                
             }
         }
         return ans;
