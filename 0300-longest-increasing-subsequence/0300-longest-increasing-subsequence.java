@@ -1,4 +1,4 @@
-// yeh question pehle hahsmap wali approach se try kar re tha par TLE aa ra baar baar
+// yeh question pehle hashmap wali approach se try kar re tha par TLE aa ra baar baar
 // very imp learning, hashmap bhi TLE de sakta hai toh be very careful
 
 // class Solution {
@@ -30,35 +30,60 @@
 // }
 
 // hashmap to dp
-// coordinate shift method b Striver
+// coordinate shift method by Striver
 // https://youtu.be/ekcwMsSIzVc
+
+// class Solution {
+//     public int lengthOfLIS(int[] nums) {
+//         int dp[][]=new int[nums.length][nums.length+1];
+//         for(int temp[]:dp)
+//         {
+//             Arrays.fill(temp,-1);
+//         }
+//         return helper(nums,0,-1,dp);
+//     }
+//     public int helper(int nums[],int index,int prevInd,int dp[][])
+//     {
+//         if(index>=nums.length)
+//         {
+//             return 0;
+//         }
+//         if(dp[index][prevInd+1]!=-1)
+//         {
+//             return dp[index][prevInd+1];
+//         }
+//         int ans1=0,ans2=0,ans=0;
+//         ans1=helper(nums,index+1,prevInd,dp);
+//         if(prevInd==-1||nums[index]>nums[prevInd])
+//         {
+//             ans2=1+helper(nums,index+1,index,dp);
+//         }
+//         ans=Math.max(ans1,ans2);
+//         return dp[index][prevInd+1]=ans;
+//     }
+// }
+
+
+// Tabulation approach
+// keep in mind coordinate shift ki method se kya kya chnages aa rahe hai 
+// https://youtu.be/IFfYfonAFGc
 
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int dp[][]=new int[nums.length][nums.length+1];
-        for(int temp[]:dp)
+        int dp[][]=new int[nums.length+1][nums.length+1];
+        for(int i=nums.length-1;i>=0;i--)
         {
-            Arrays.fill(temp,-1);
+            for(int j=nums.length-1;j>=-1;j--)
+            {
+                int ans1=0,ans2=0;
+                ans1=dp[i+1][j+1]; // yahan pe j ki jagah j+1
+                if(j==-1||nums[i]>nums[j])
+                {
+                    ans2=1+dp[i+1][i+1]; // yahan i ki jagah i+1
+                }
+                dp[i][j+1]=Math.max(ans1,ans2); // yahan pe bhi j+1
+            }
         }
-        return helper(nums,0,-1,dp);
-    }
-    public int helper(int nums[],int index,int prevInd,int dp[][])
-    {
-        if(index>=nums.length)
-        {
-            return 0;
-        }
-        if(dp[index][prevInd+1]!=-1)
-        {
-            return dp[index][prevInd+1];
-        }
-        int ans1=0,ans2=0,ans=0;
-        ans1=helper(nums,index+1,prevInd,dp);
-        if(prevInd==-1||nums[index]>nums[prevInd])
-        {
-            ans2=1+helper(nums,index+1,index,dp);
-        }
-        ans=Math.max(ans1,ans2);
-        return dp[index][prevInd+1]=ans;
+        return dp[0][0]; // yahan pe bhi -1 ki jagah 0
     }
 }
