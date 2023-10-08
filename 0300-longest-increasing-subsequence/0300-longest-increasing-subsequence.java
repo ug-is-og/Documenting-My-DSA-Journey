@@ -68,22 +68,45 @@
 // keep in mind coordinate shift ki method se kya kya chnages aa rahe hai 
 // https://youtu.be/IFfYfonAFGc
 
+// class Solution {
+//     public int lengthOfLIS(int[] nums) {
+//         int dp[][]=new int[nums.length+1][nums.length+1];
+//         for(int i=nums.length-1;i>=0;i--)
+//         {
+//             for(int j=nums.length-1;j>=-1;j--)
+//             {
+//                 int ans1=0,ans2=0;
+//                 ans1=dp[i+1][j+1]; // yahan pe j ki jagah j+1
+//                 if(j==-1||nums[i]>nums[j])
+//                 {
+//                     ans2=1+dp[i+1][i+1]; // yahan i ki jagah i+1
+//                 }
+//                 dp[i][j+1]=Math.max(ans1,ans2); // yahan pe bhi j+1
+//             }
+//         }
+//         return dp[0][0]; // yahan pe bhi -1 ki jagah 0
+//     }
+// }
+
+// Optimal approach in O(n^2) TC and O(n) SC
+
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int dp[][]=new int[nums.length+1][nums.length+1];
-        for(int i=nums.length-1;i>=0;i--)
+        int dp[]=new int[nums.length];
+        Arrays.fill(dp,1);
+        for(int i=1;i<dp.length;i++)
         {
-            for(int j=nums.length-1;j>=-1;j--)
+            int max=0;
+            for(int j=0;j<i;j++)
             {
-                int ans1=0,ans2=0;
-                ans1=dp[i+1][j+1]; // yahan pe j ki jagah j+1
-                if(j==-1||nums[i]>nums[j])
-                {
-                    ans2=1+dp[i+1][i+1]; // yahan i ki jagah i+1
-                }
-                dp[i][j+1]=Math.max(ans1,ans2); // yahan pe bhi j+1
+                if(nums[j]<nums[i])
+                max=Math.max(max,dp[j]);
             }
+            dp[i]=max+1;
         }
-        return dp[0][0]; // yahan pe bhi -1 ki jagah 0
+        int max=0;
+        for(int a:dp)
+        max=Math.max(max,a);
+        return max;
     }
 }
