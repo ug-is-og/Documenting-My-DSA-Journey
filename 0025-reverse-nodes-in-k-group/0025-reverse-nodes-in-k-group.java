@@ -59,42 +59,100 @@
 // very very important question, dry run along with Striver's video if you don't understand it in 1 go
 // https://www.youtube.com/watch?v=Of0HPkk3JgI&t=1072s
 
+// class Solution {
+//     public ListNode reverseKGroup(ListNode head, int k) {
+//         // count the nodes in Linked List
+//         int count=0;
+//         ListNode temp=head;
+//         while(temp!=null)
+//         {
+//             count++;
+//             temp=temp.next;
+//         }
+//         ListNode dummy=new ListNode(Integer.MIN_VALUE);
+//         dummy.next=head;
+//         ListNode prevNode=dummy,currNode=dummy,nextNode=dummy;
+//         while(count>=k)
+//         {
+//             currNode=prevNode.next;
+//             nextNode=currNode.next;
+//             for(int i=1;i<=k-1;i++)
+//             {
+//                 currNode.next=nextNode.next;
+//                 nextNode.next=prevNode.next;
+//                 prevNode.next=nextNode;
+//                 nextNode=currNode.next;
+//             }
+//             count=count-k;
+//             prevNode=currNode;
+
+//             // yeh dono statements mein yaha pe likh ra tha pehle and null pointer exception
+//             // aa gaya samjho kyun
+//             // 1,2,3,4,5 and k=3 hai toh currNode ek point pe null pe aayega bilkul last mein
+//             // matlab jab count<k ho gaya hai toh tum null.next kar re to find nexNode which 
+//             // iss liye upar jaake pehle condition check karenge uske baad karenge currNode, nextNode ko update
+
+//             // currNode=prevNode.next;
+//             // nextNode=currNode.next;
+//         }
+//         return dummy.next;
+//     }
+// }
+
+// helped out Harman in this question and then did it on my own
+
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
-        // count the nodes in Linked List
-        int count=0;
+        // count the no of nodes at first
         ListNode temp=head;
+        int count=0;
         while(temp!=null)
         {
-            count++;
             temp=temp.next;
+            count++;
         }
-        ListNode dummy=new ListNode(Integer.MIN_VALUE);
-        dummy.next=head;
-        ListNode prevNode=dummy,currNode=dummy,nextNode=dummy;
-        while(count>=k)
+        if(count<k)
         {
-            currNode=prevNode.next;
-            nextNode=currNode.next;
-            for(int i=1;i<=k-1;i++)
-            {
-                currNode.next=nextNode.next;
-                nextNode.next=prevNode.next;
-                prevNode.next=nextNode;
-                nextNode=currNode.next;
-            }
-            count=count-k;
-            prevNode=currNode;
-
-            // yeh dono statements mein yaha pe likh ra tha pehle and null pointer exception
-            // aa gaya samjho kyun
-            // 1,2,3,4,5 and k=3 hai toh currNode ek point pe null pe aayega bilkul last mein
-            // matlab jab count<k ho gaya hai toh tum null.next kar re to find nexNode which 
-            // iss liye upar jaake pehle condition check karenge uske baad karenge currNode, nextNode ko update
-
-            // currNode=prevNode.next;
-            // nextNode=currNode.next;
+            return head;
         }
-        return dummy.next;
+        return swap(k,count,head);
+    }
+    public ListNode swap(int k,int count,ListNode head)
+    {
+        if(count<k)
+        {
+            return head;
+        }
+        ListNode prev=head;
+        ListNode curr=prev;
+        int temp=k-1;
+        while(temp!=0)
+        {
+            curr=curr.next;
+            temp--;
+        }
+        ListNode tempNode=curr.next;
+        curr.next=null;
+        curr=reverseLinks(head);
+        prev.next=swap(k,count-k,tempNode);
+        return curr;
+    }
+    public ListNode reverseLinks(ListNode head)
+    {
+        if(head==null||head.next==null)
+        {
+            return head;
+        }
+        ListNode prev=head;
+        ListNode curr=head.next;
+        prev.next=null;
+        while(curr!=null)
+        {
+            ListNode temp=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=temp;
+        }
+        return prev;
     }
 }
