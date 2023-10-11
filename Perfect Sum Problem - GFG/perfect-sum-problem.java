@@ -99,29 +99,155 @@ class GfG
 // Approach 3 (Tabulation)(n to 0) ------------------------------------------------->
 
 
-class Solution{
-    public int perfectSum(int arr[],int n,int sum)
-    {
-        int dp[][]=new int[n+1][sum+1];
-        int k=1;
-        //initialisation using base condition of recursion 
-        for(int i=0;i<n+1;i++)
-        {
-            if(i>0&&arr[i-1]==0)
-            k=k*2;
-            dp[i][0]=k;
-        }
-        //tabulation
-        for(int i=1;i<n+1;i++)
-        {
-            for(int j=1;j<sum+1;j++)
-            {
-                if(j>=arr[i-1])
-                dp[i][j]=(dp[i-1][j-arr[i-1]]+dp[i-1][j])%1000000007;
-                else
-                dp[i][j]=dp[i-1][j]%1000000007;
-            }
-        }
-        return dp[n][sum]%1000000007;
-    }
+// class Solution{
+//     public int perfectSum(int arr[],int n,int sum)
+//     {
+//         int dp[][]=new int[n+1][sum+1];
+//         int k=1;
+//         //initialisation using base condition of recursion 
+//         for(int i=0;i<n+1;i++)
+//         {
+//             if(i>0&&arr[i-1]==0)
+//             k=k*2;
+//             dp[i][0]=k;
+//         }
+//         //tabulation
+//         for(int i=1;i<n+1;i++)
+//         {
+//             for(int j=1;j<sum+1;j++)
+//             {
+//                 if(j>=arr[i-1])
+//                 dp[i][j]=(dp[i-1][j-arr[i-1]]+dp[i-1][j])%1000000007;
+//                 else
+//                 dp[i][j]=dp[i-1][j]%1000000007;
+//             }
+//         }
+//         return dp[n][sum]%1000000007;
+//     }
+// }
+
+
+// tumne iss nayi approach mein zaada dimaag laga diya hai and 1 size used array use karli, isme memoization use hi nahi karpaoge
+// kyunki return type void le rakha hai bhaisahab aapne toh
+
+//  class Solution{
+
+// 	public int perfectSum(int arr[],int n, int sum) 
+// 	{ 
+// 	   int count[]=new int[1];
+// 	   int cnt=0;
+//       helper(arr.length,arr,sum,count);
+       
+        
+//         // yeh approach fail ho jayegi, recursion mein ghuske dekhna padega kahan dikakt aa rahi
+        
+//         // find the number of zeroes
+//         // for(int a:arr)
+//         // {
+//         //     if(a==0)
+//         //     cnt++;
+//         // }
+//          return count[0];
+// 	} 
+// 	public static void helper(int index,int num[],int tar,int count[])
+//     {
+//         int k=0;
+//         if(tar==0)
+//         {
+//             // 6 10
+//             // 2 0 5 0 8 10
+//             // iss test case ko bhot dhyan se dekho bhaii, issi ki wajah se yeh loop lagaya hai to check ki 
+//             // index ke pehle tak kitne zeroes aa rahe hai
+//             // aur upar wali approach nahi chalegi
+//             for(int i=0;i<index;i++) 
+//             {
+//                 if(num[i]==0)
+//                 k++;
+//             }
+//             count[0]=count[0]+(int)Math.pow(2,k);
+//             return;
+//         }
+//         if(index==0)
+//         {
+//             return;
+//         }
+//         if(tar>=num[index-1])
+//         {
+//             helper(index-1,num,tar-num[index-1],count);
+//             helper(index-1,num,tar,count);
+//         }
+//         else
+//         {
+//             helper(index-1,num,tar,count);
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ class Solution{
+
+	public int perfectSum(int arr[],int n, int sum) 
+	{ 
+	   int dp[][]=new int[sum+1][n];
+	   for(int temp[]:dp)
+	   {
+	       Arrays.fill(temp,-1);
+	   }
+	   return helper(arr,sum,dp,0);
+	} 
+	public int helper(int arr[],int sum,int dp[][],int index)
+	{
+	    int count=0;
+	    if(sum==0)
+	    {
+	        for(int i=index;i<arr.length;i++)
+	        {
+	           if(arr[i]==0)
+	           {
+	               count++;
+	           }
+	        }
+	        return (int)Math.pow(2,count);
+	    }
+	    if(index==arr.length||sum<0)
+	    {
+	        return 0;
+	    }
+	    if(dp[sum][index]!=-1)
+	    {
+	        return dp[sum][index];
+	    }
+	    return dp[sum][index]=((helper(arr,sum,dp,index+1))%1000000007+helper(arr,sum-arr[index],dp,index+1)%1000000007)%1000000007;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
