@@ -118,51 +118,100 @@ class Node
     }
 }
  */
+ 
+ 
+// Brute force approach O(n^3)
 
+// class Solution {
+//     int dupSub(Node root) {
+//         // simple trversal to all nodes
+//         List<Node> nodes=new ArrayList<>();
+//         inorder(root,nodes);
+//         boolean check=false;
+//         for(int i=0;i<nodes.size();i++){
+//             for(int j=i+1;j<nodes.size();j++)
+//             {
+//                 check=check||duplicate(nodes.get(i),nodes.get(j),0);
+//             }
+//         }
+//         if(check==true)
+//         return 1;
+//         return 0;
+//     }
+//     void inorder(Node root,List<Node> nodes)
+//     {
+//         if(root==null)
+//         {
+//             return;
+//         }
+//         inorder(root.left,nodes);
+//         nodes.add(root);
+//         inorder(root.right,nodes);
+//     }
+//     boolean duplicate(Node node1,Node node2,int count)
+//     {
+//         if(node1==null&&node2==null)
+//         {
+//             if(count>=2)
+//             return true;
+//             return false;
+//         }
+//         if((node1==null&&node2!=null)||(node1!=null&&node2==null))
+//         {
+//             return false;
+//         }
+//         if(node1.data!=node2.data)
+//         {
+//             return false;
+//         }
+//         count++;
+//         return duplicate(node1.left,node2.left,count)&&duplicate(node1.right,node2.right,count);
+        
+//     }
+// }
+
+
+// Optimized approach using HashMap
+
+class data{
+    String treeString;
+    int nodes;
+    public data(String treeString,int nodes)
+    {
+        this.treeString=treeString;
+        this.nodes=nodes;
+    }
+}
 class Solution {
     int dupSub(Node root) {
-        // simple trversal to all nodes
-        List<Node> nodes=new ArrayList<>();
-        inorder(root,nodes);
-        boolean check=false;
-        for(int i=0;i<nodes.size();i++){
-            for(int j=i+1;j<nodes.size();j++)
-            {
-                check=check||duplicate(nodes.get(i),nodes.get(j),0);
-            }
+        if(root==null)
+        {
+            return 0;
         }
-        if(check==true)
-        return 1;
+        HashMap<String,Integer> map=new HashMap<>();
+        data ans=buildHashMap(map,root);
+        for(Map.Entry<String,Integer> entry:map.entrySet())
+        {
+            if(entry.getValue()>1)
+            return 1;
+        }
         return 0;
     }
-    void inorder(Node root,List<Node> nodes)
+    data buildHashMap(HashMap<String,Integer> map,Node root)
     {
         if(root==null)
         {
-            return;
+            return new data("$",0);
         }
-        inorder(root.left,nodes);
-        nodes.add(root);
-        inorder(root.right,nodes);
-    }
-    boolean duplicate(Node node1,Node node2,int count)
-    {
-        if(node1==null&&node2==null)
-        {
-            if(count>=2)
-            return true;
-            return false;
-        }
-        if((node1==null&&node2!=null)||(node1!=null&&node2==null))
-        {
-            return false;
-        }
-        if(node1.data!=node2.data)
-        {
-            return false;
-        }
-        count++;
-        return duplicate(node1.left,node2.left,count)&&duplicate(node1.right,node2.right,count);
-        
+        String s="";
+        s=s+root.data;
+        data leftTreeData=buildHashMap(map,root.left);
+        data rightTreeData=buildHashMap(map,root.right);
+        if(leftTreeData.nodes>1)
+        map.put(leftTreeData.treeString,map.getOrDefault(leftTreeData.treeString,0)+1);
+        if(rightTreeData.nodes>1)
+        map.put(rightTreeData.treeString,map.getOrDefault(rightTreeData.treeString,0)+1);
+        s=s+root.data+leftTreeData.treeString+rightTreeData.treeString;
+        return new data(s,leftTreeData.nodes+rightTreeData.nodes+1);
     }
 }
