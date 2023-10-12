@@ -26,4 +26,4 @@ is the duplicate sub-tree.</span></pre>
 in the given binary tree.</span></pre>
 <p><span style="font-size: 18px;"><strong>Your Task:&nbsp;&nbsp;</strong><br>You don't need to read input or print anything. Your task is to complete the function&nbsp;<strong>dupSub()</strong>&nbsp;which takes root of the tree as the only argument and returns 1 if the binary tree contains a duplicate sub-tree of size two&nbsp;or more, else 0.</span></p>
 <p><span style="font-size: 18px;"><strong>Expected Time Complexity:</strong> </span><span style="font-size: 18px;">O(N)<br></span><span style="font-size: 18px;"><strong>Expected Space Complexity:</strong> O(N)</span></p>
-<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>0 ≤ Number of nodes ≤ 9</span><br>&nbsp;</p></div>
+<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>0 ≤ Data of nodes ≤ 9<br></span>1&nbsp;<span style="font-size: 18px;">≤ Number of nodes&nbsp;</span><span style="font-size: 18px;">≤ 10<sup>5</sup></span>&nbsp;</p></div>
