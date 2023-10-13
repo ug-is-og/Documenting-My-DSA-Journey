@@ -78,6 +78,41 @@
 
 // we can use bfs or dfs both, both will be applicable
 
+// class Solution {
+//     public int[][] floodFill(int[][] image, int sr, int sc, int color){
+//         int ans[][]=new int[image.length][image[0].length];
+//         for(int i=0;i<ans.length;i++)
+//         {
+//             for(int j=0;j<ans[0].length;j++)
+//             {
+//                 ans[i][j]=image[i][j];
+//             }
+//         }
+//         boolean visited[][]=new boolean[image.length][image[0].length];
+//         visited[sr][sc]=true;
+//         dfs(sr,sc,visited,ans,image,image[sr][sc],color);
+//         return ans;
+//     }
+//     public void dfs(int sr,int sc,boolean visited[][],int ans[][],int image[][],int mainColor,int color)
+//     {
+//         ans[sr][sc]=color;
+//         int rows[]={-1,0,1,0};
+//         int cols[]={0,-1,0,1};
+//         for(int i=0;i<rows.length;i++)
+//         {
+//             int row=rows[i]+sr;
+//             int col=cols[i]+sc;
+//             if(row<0||col<0||row>=image.length||col>=image[0].length||visited[row][col]==true||image[row][col]!=mainColor)
+//             {
+//                 continue;
+//             }
+//             visited[row][col]=true;
+//             dfs(row,col,visited,ans,image,mainColor,color);
+//         }
+//     }
+// }
+
+
 class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int color){
         int ans[][]=new int[image.length][image[0].length];
@@ -88,26 +123,26 @@ class Solution {
                 ans[i][j]=image[i][j];
             }
         }
-        boolean visited[][]=new boolean[image.length][image[0].length];
-        visited[sr][sc]=true;
-        dfs(sr,sc,visited,ans,image,image[sr][sc],color);
+       // boolean visited[][]=new boolean[image.length][image[0].length];
+       // visited[sr][sc]=true;
+        ans[sr][sc]=color;
+        dfs(sr,sc,ans,image,image[sr][sc],color);
         return ans;
     }
-    public void dfs(int sr,int sc,boolean visited[][],int ans[][],int image[][],int mainColor,int color)
+    public void dfs(int sr,int sc,int ans[][],int image[][],int mainColor,int color)
     {
-        ans[sr][sc]=color;
         int rows[]={-1,0,1,0};
         int cols[]={0,-1,0,1};
         for(int i=0;i<rows.length;i++)
         {
             int row=rows[i]+sr;
             int col=cols[i]+sc;
-            if(row<0||col<0||row>=image.length||col>=image[0].length||visited[row][col]==true||image[row][col]!=mainColor)
+            if(row<0||col<0||row>=image.length||col>=image[0].length||ans[row][col]==color||image[row][col]!=mainColor)
             {
                 continue;
             }
-            visited[row][col]=true;
-            dfs(row,col,visited,ans,image,mainColor,color);
+            ans[row][col]=color;
+            dfs(row,col,ans,image,mainColor,color);
         }
     }
 }
