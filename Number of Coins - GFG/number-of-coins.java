@@ -36,7 +36,7 @@ class Solution
 	        Arrays.fill(temp,-1);
 	    }
 	    int ans=helper(0,coins,V,dp);
-	    if(ans>=1000000)
+	    if(ans==1000000)
 	    {
 	        return -1;
 	    }
