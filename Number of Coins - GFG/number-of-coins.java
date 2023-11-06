@@ -24,25 +24,23 @@ class GfG
 // } Driver Code Ends
 
 
-// This question is under greedy tag in Striver's sheet, but it isn't a greedy algo question, it's a dp question
+class Solution{
 
-class Solution
-{
 	public int minCoins(int coins[], int M, int V) 
 	{ 
-	    int dp[][]=new int[M][V+1];
+	    int dp[][]=new int[V+1][M];
 	    for(int temp[]:dp)
 	    {
 	        Arrays.fill(temp,-1);
 	    }
-	    int ans=helper(0,coins,V,dp);
+	    int ans=helper(coins,V,dp,0);
 	    if(ans==1000000)
 	    {
 	        return -1;
 	    }
 	    return ans;
 	} 
-	public int helper(int index,int coins[],int V,int dp[][])
+	public int helper(int coins[],int V,int dp[][],int index)
 	{
 	    if(V==0)
 	    {
@@ -52,15 +50,15 @@ class Solution
 	    {
 	        return 1000000;
 	    }
-	    if(dp[index][V]!=-1)
+	    if(dp[V][index]!=-1)
 	    {
-	        return dp[index][V];
+	        return dp[V][index];
 	    }
 	    int min=Integer.MAX_VALUE;
 	    for(int i=0;i<=V/coins[index];i++)
 	    {
-	        min=Math.min(min,i+helper(index+1,coins,V-(i*coins[index]),dp));
+	        min=Math.min(min,i+helper(coins,V-i*coins[index],dp,index+1));
 	    }
-	    return dp[index][V]=min;
+	    return dp[V][index]=min;
 	}
 }
