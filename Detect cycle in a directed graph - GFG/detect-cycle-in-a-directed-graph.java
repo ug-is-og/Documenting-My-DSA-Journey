@@ -29,46 +29,90 @@ class DriverClass {
 // } Driver Code Ends
 
 
-/*Complete the function below*/
+// CyCle Detection using BFS
+
+// class Solution {
+//     // Function to detect cycle in a directed graph.
+//     public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
+//         boolean visited[]=new boolean[V];
+//         boolean pathVisited[]=new boolean[V];
+//         boolean ans=false; // maanlo ki cycle nahi hai
+//         for(int i=0;i<V;i++)
+//         {
+//             if(!visited[i])
+//             {
+//                 visited[i]=true;
+//                 pathVisited[i]=true;
+//                 ans=ans||dfs(visited,pathVisited,adj,i);// kisi bhi possibility se cycle aa gayi toh mark it as true
+//                 pathVisited[i]=false;
+//             }
+//         }
+//         return ans;
+//     }
+//     public boolean dfs(boolean visited[],boolean pathVisited[],ArrayList<ArrayList<Integer>> adj,int source)
+//     {
+//         boolean ans=false;
+//         for(int i=0;i<adj.get(source).size();i++)
+//         {
+//             if(!visited[adj.get(source).get(i)])
+//             {
+//                 visited[adj.get(source).get(i)]=true;
+//                 pathVisited[adj.get(source).get(i)]=true;
+//                 ans=ans||dfs(visited,pathVisited,adj,adj.get(source).get(i));
+//                 pathVisited[adj.get(source).get(i)]=false;
+//             }
+//             else
+//             {
+//                 if(pathVisited[adj.get(source).get(i)]==true)
+//                 {
+//                     return true;
+//                 }
+//             }
+//         }
+//         return ans;
+//     }
+// }
+
+// cycle detection using BFS
 
 class Solution {
     // Function to detect cycle in a directed graph.
     public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
-        boolean visited[]=new boolean[V];
-        boolean pathVisited[]=new boolean[V];
-        boolean ans=false; // maanlo ki cycle nahi hai
-        for(int i=0;i<V;i++)
+        // build topo sort
+        int indegree[]=new int[V];
+        for(int i=0;i<adj.size();i++)
         {
-            if(!visited[i])
+            for(int j=0;j<adj.get(i).size();j++)
             {
-                visited[i]=true;
-                pathVisited[i]=true;
-                ans=ans||dfs(visited,pathVisited,adj,i);// kisi bhi possibility se cycle aa gayi toh mark it as true
-                pathVisited[i]=false;
+                indegree[adj.get(i).get(j)]++;
             }
         }
-        return ans;
-    }
-    public boolean dfs(boolean visited[],boolean pathVisited[],ArrayList<ArrayList<Integer>> adj,int source)
-    {
-        boolean ans=false;
-        for(int i=0;i<adj.get(source).size();i++)
+        Queue<Integer> q=new LinkedList<>();
+        List<Integer> ans=new ArrayList<>();
+        for(int i=0;i<indegree.length;i++)
         {
-            if(!visited[adj.get(source).get(i)])
+            if(indegree[i]==0)
             {
-                visited[adj.get(source).get(i)]=true;
-                pathVisited[adj.get(source).get(i)]=true;
-                ans=ans||dfs(visited,pathVisited,adj,adj.get(source).get(i));
-                pathVisited[adj.get(source).get(i)]=false;
+                q.add(i);
             }
-            else
+        }
+        while(!q.isEmpty())
+        {
+            int temp=q.remove();
+            ans.add(temp);
+            for(int i=0;i<adj.get(temp).size();i++)
             {
-                if(pathVisited[adj.get(source).get(i)]==true)
+                indegree[adj.get(temp).get(i)]--;
+                if(indegree[adj.get(temp).get(i)]==0)
                 {
-                    return true;
+                    q.add(adj.get(temp).get(i));
                 }
             }
         }
-        return ans;
+        if(ans.size()<V)
+        {
+            return true;
+        }
+        return false;
     }
 }
