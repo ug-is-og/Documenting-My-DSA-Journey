@@ -35,25 +35,35 @@ class Solution
     //Function to find if there exists a triplet in the 
     //array A[] which sums up to X.
     public static boolean find3Numbers(int A[], int n, int X) { 
-        Arrays.sort(A);
-        for(int i=0;i<n-2;i++)
+    
+       Arrays.sort(A);
+       boolean ans=false;
+       for(int i=0;i<n;i++)
+       {
+           ans=ans||twoPointer(A,i+1,n-1,X-A[i]);
+           if(ans)
+           {
+               return true;
+           }
+       }
+       return false;
+    }
+    public static boolean twoPointer(int A[],int start,int end,int target)
+    {
+        while(start<end) // start<=end nahi kar sakte dhyan se socho , 2 distinct elements chahiye hame 
         {
-            int l=i+1,r=n-1;
-            while(l<r)
+            int sum=A[start]+A[end];
+            if(sum==target)
             {
-                int sum=A[l]+A[r]+A[i];
-                if(sum==X)
-                {
-                    return true;
-                }
-                else if(sum<X)
-                {
-                    l++;
-                }
-                else
-                {
-                    r--;
-                }
+                return true;
+            }
+            else if(sum<target)
+            {
+                start++;
+            }
+            else
+            {
+                end--;
             }
         }
         return false;
