@@ -32,6 +32,85 @@ class Main {
 // } Driver Code Ends
 
 
+
+
+// class Solution {
+
+    
+//     // a: input array
+//     // n: size of array
+//     // Function to find equilibrium point in the array.
+//     public static int equilibriumPoint(long arr[], int n) {
+//         long preSum[]=new long[n];
+//         preSum[0]=arr[0];
+//         long leftSum=0,rightSum=0;
+//         for(int i=1;i<arr.length;i++)
+//         {
+//             preSum[i]=preSum[i-1]+arr[i];
+//         }
+//         for(int i=0;i<n;i++)
+//         {
+//             if(i-1<0)
+//             leftSum=0;
+//             else
+//             leftSum=preSum[i-1];
+//             rightSum=preSum[n-1]-preSum[i];
+//             if(leftSum==rightSum)
+//             return i+1;
+//         }
+//         return -1;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Solution {
 
     
@@ -39,22 +118,20 @@ class Solution {
     // n: size of array
     // Function to find equilibrium point in the array.
     public static int equilibriumPoint(long arr[], int n) {
-        long preSum[]=new long[n];
-        preSum[0]=arr[0];
-        long leftSum=0,rightSum=0;
+        long prefixSum[]=new long[n];
+        prefixSum[0]=arr[0];
         for(int i=1;i<arr.length;i++)
         {
-            preSum[i]=preSum[i-1]+arr[i];
+            prefixSum[i]=arr[i]+prefixSum[i-1];
         }
+        long temp=0;
         for(int i=0;i<n;i++)
         {
-            if(i-1<0)
-            leftSum=0;
-            else
-            leftSum=preSum[i-1];
-            rightSum=preSum[n-1]-preSum[i];
-            if(leftSum==rightSum)
-            return i+1;
+            if(prefixSum[n-1]-prefixSum[i]==temp)
+            {
+                return i+1;
+            }
+            temp=prefixSum[i];
         }
         return -1;
     }
