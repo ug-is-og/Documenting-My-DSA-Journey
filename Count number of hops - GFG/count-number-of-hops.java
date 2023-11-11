@@ -41,23 +41,26 @@ class Solution
     //Function to count the number of ways in which frog can reach the top.
     static long countWays(int n)
     {
-        long dp[]=new long[n+1];
+        long dp[]=new long[n];
         Arrays.fill(dp,-1);
-        return helper(n,dp);
+        return helper(0,dp,n);
     }
-    static long helper(int n,long dp[])
+    static long helper(int i,long dp[],int n)
     {
-        if(n==0)
+        int mod=1000000007;
+        if(i==n)
         {
             return 1;
         }
-        if(n<0)
+        if(i>n)
         {
             return 0;
         }
-        if(dp[n]!=-1)
-        return dp[n];
-        return dp[n]=(helper(n-1,dp)+helper(n-2,dp)+helper(n-3,dp))%1000000007;
+        if(dp[i]!=-1)
+        {
+            return dp[i];
+        }
+        return dp[i]=(((helper(i+1,dp,n)+helper(i+2,dp,n))%mod)+helper(i+3,dp,n))%mod;
     }
     
 }
