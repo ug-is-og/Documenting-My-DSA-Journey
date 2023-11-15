@@ -5,11 +5,6 @@
 //         int min=Integer.MAX_VALUE;
 //         while(start<=end)
 //         {
-//             if(arr[start]<=arr[end]) // optimization for a better time complexity, matlab zabardasti binary search nahi karna padega
-//             {
-//                 min=Math.min(arr[start],min);
-//                 return min;
-//             }
 //             mid=(start+end)/2;
 //             if(arr[start]<=arr[mid])
 //             {
