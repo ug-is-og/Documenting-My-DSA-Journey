@@ -8,41 +8,85 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+// class Solution {
+//     public ListNode removeElements(ListNode head, int val) {
+//         if(head==null)
+//         return head;
+//         if(head.next==null)
+//         {
+//             if(head.val==val)
+//             return null;
+//             return head;
+//         }
+//         ListNode prev=head,curr=head.next;
+//         while(curr!=null)
+//         {
+//             if(prev.val==val)
+//             {
+//                 prev=prev.next;
+//                 curr=curr.next;
+//                 head=prev;
+//             }
+//             else
+//             {
+//                 if(curr.val==val)
+//                 {
+//                     prev.next=curr.next;
+//                     curr=curr.next;
+//                 }
+//                 else
+//                 {
+//                     prev=prev.next;
+//                     curr=curr.next;
+//                 }
+//             }
+//         }
+//         if(prev.val==val) // consider the test case [7,7,7,7]
+//         return prev.next;
+//         return head;     
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// more neat and clean code
+
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
-        if(head==null)
-        return head;
-        if(head.next==null)
+        while(head!=null&&head.val==val)
         {
-            if(head.val==val)
-            return null;
+            head=head.next;
+        }
+        if(head==null)
+        {
             return head;
         }
-        ListNode prev=head,curr=head.next;
-        while(curr!=null)
+        ListNode prevNode=head,currNode=head.next;
+        while(currNode!=null)
         {
-            if(prev.val==val)
+            if(currNode.val==val)
             {
-                prev=prev.next;
-                curr=curr.next;
-                head=prev;
+                prevNode.next=currNode.next;
             }
             else
             {
-                if(curr.val==val)
-                {
-                    prev.next=curr.next;
-                    curr=curr.next;
-                }
-                else
-                {
-                    prev=prev.next;
-                    curr=curr.next;
-                }
+                prevNode=currNode;
             }
+            currNode=currNode.next;
         }
-        if(prev.val==val)
-        return prev.next;
-        return head;     
+        return head;
     }
 }
