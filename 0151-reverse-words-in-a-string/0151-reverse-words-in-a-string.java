@@ -96,26 +96,57 @@
 
 // Now I'll focus on optimizing it and doing in O(1) space
 
+// class Solution {
+//     public String reverseWords(String s) {
+//         s=s.trim();
+//         String temp="",ans="";
+//         for(int i=0;i<s.length();i++)
+//         {
+//             char c=s.charAt(i);
+//             if(c!=' ')
+//             {
+//                 temp=temp+c;
+//             }
+//             else
+//             {
+//                 if(temp.length()!=0)
+//                 ans=temp+" "+ans;
+//                 temp="";
+//             }
+//         }
+//         if(temp.length()!=0)
+//         ans=temp+" "+ans;
+//         return ans.trim();
+//     }
+// }
+
+
+
+// was trying a solution without using trim()
+
 class Solution {
     public String reverseWords(String s) {
-        s=s.trim();
-        String temp="",ans="";
+        String ans="",temp="";
         for(int i=0;i<s.length();i++)
         {
             char c=s.charAt(i);
-            if(c!=' ')
+            if(c==' ')
             {
-                temp=temp+c;
+                if(temp.length()!=0&&ans.length()!=0)
+                ans=temp+" "+ans;
+                else
+                ans=temp+ans;
+                temp="";
             }
             else
             {
-                if(temp.length()!=0)
-                ans=temp+" "+ans;
-                temp="";
+                temp=temp+s.charAt(i);
             }
         }
-        if(temp.length()!=0)
+       if(temp.length()!=0&&ans.length()!=0)
         ans=temp+" "+ans;
-        return ans.trim();
+        else
+        ans=temp+ans;
+        return ans;
     }
 }
