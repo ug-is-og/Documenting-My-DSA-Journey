@@ -34,25 +34,79 @@ class GFG {
 // } Driver Code Ends
 
 
+// class Solution {
+//     // Function to return a list containing the DFS traversal of the graph.
+//     public ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+//         ArrayList<Integer> ans=new ArrayList<>();
+//         boolean visited[]=new boolean[V];
+//         dfsHelper(ans,adj,0,visited);
+//         return ans;
+//     }
+//     public void dfsHelper(ArrayList<Integer> ans,ArrayList<ArrayList<Integer>> adj,int index,boolean visited[])
+//     {
+//         if(visited[index]==true) // isko avoid bhi kar sakte the, matlab jahan call laga re wahan directly 
+//         // check karle agar ki yeh secific node already visited hai toh call hi mat lagaao
+//          return;
+//         visited[index]=true;
+//         ans.add(index);
+//         for(int i=0;i<adj.get(index).size();i++)
+//         {
+//             // if(visited[adj.get(index).get(i)]!=true)
+//             dfsHelper(ans,adj,adj.get(index).get(i),visited);
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Solution {
     // Function to return a list containing the DFS traversal of the graph.
     public ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
         ArrayList<Integer> ans=new ArrayList<>();
         boolean visited[]=new boolean[V];
-        dfsHelper(ans,adj,0,visited);
+        helper(0,ans,visited,adj);
         return ans;
     }
-    public void dfsHelper(ArrayList<Integer> ans,ArrayList<ArrayList<Integer>> adj,int index,boolean visited[])
+    public void helper(int vertex,ArrayList<Integer> ans,boolean visited[],ArrayList<ArrayList<Integer>> adj)
     {
-       // if(visited[index]==true) // isko avoid bhi kar sakte the, matlab jahan call laga re wahan directly 
-        // check karle agar ki yeh secific node already visited hai toh call hi mat lagaao
-        // return;
-        visited[index]=true;
-        ans.add(index);
-        for(int i=0;i<adj.get(index).size();i++)
+        visited[vertex]=true;
+        ans.add(vertex);
+        for(int i=0;i<adj.get(vertex).size();i++)
         {
-            if(visited[adj.get(index).get(i)]!=true)
-            dfsHelper(ans,adj,adj.get(index).get(i),visited);
+            if(!visited[adj.get(vertex).get(i)])
+            helper(adj.get(vertex).get(i),ans,visited,adj);
         }
     }
 }
