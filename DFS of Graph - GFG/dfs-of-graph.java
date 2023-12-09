@@ -44,7 +44,8 @@ class Solution {
     }
     public void dfsHelper(ArrayList<Integer> ans,ArrayList<ArrayList<Integer>> adj,int index,boolean visited[])
     {
-        if(visited[index]==true)
+        if(visited[index]==true) // isko avoid bhi kar sakte the, matlab jahan call laga re wahan directly 
+        // check karle agar ki yeh secific node already visited hai toh call hi mat lagaao
         return;
         visited[index]=true;
         ans.add(index);
