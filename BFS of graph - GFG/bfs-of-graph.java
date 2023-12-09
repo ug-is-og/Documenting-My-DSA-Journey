@@ -92,64 +92,64 @@ class GFG {
 // }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class Solution {
     // Function to return Breadth First Traversal of given graph.
     public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
         ArrayList<Integer> ans=new ArrayList<>();
-        Queue<Integer> q=new LinkedList<>();
         boolean visited[]=new boolean[V];
+        Queue<Integer> q=new LinkedList<>();
         q.add(0);
-        visited[0]=true;
         while(!q.isEmpty())
         {
-            int vertex=q.remove();
-            // visited[vertex]=true;
-            ans.add(vertex);
-            for(int i=0;i<adj.get(vertex).size();i++)
+            int temp=q.remove();
+            if(visited[temp]==true)
+            continue;
+            visited[temp]=true;
+            ans.add(temp);
+            for(int i=0;i<adj.get(temp).size();i++)
             {
-                if(!visited[adj.get(vertex).get(i)])
+                if(visited[adj.get(temp).get(i)]!=true)
                 {
-                    q.add(adj.get(vertex).get(i));
-                    visited[adj.get(vertex).get(i)]=true; // bhot dhyan se sochna visited[adj.get(vertex).get(i)] yahan pe kyu mark kar re and while ke pehle step mein nahi
+                    q.add(adj.get(temp).get(i));
                 }
             }
-        }
+            }
         return ans;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+// class Solution {
+//     // Function to return Breadth First Traversal of given graph.
+//     public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+//         ArrayList<Integer> ans=new ArrayList<>();
+//         Queue<Integer> q=new LinkedList<>();
+//         boolean visited[]=new boolean[V];
+//         q.add(0);
+//         visited[0]=true;
+//         while(!q.isEmpty())
+//         {
+//             int vertex=q.remove();
+//             // visited[vertex]=true;
+//             ans.add(vertex);
+//             for(int i=0;i<adj.get(vertex).size();i++)
+//             {
+//                 if(!visited[adj.get(vertex).get(i)])
+//                 {
+//                     q.add(adj.get(vertex).get(i));
+//                     visited[adj.get(vertex).get(i)]=true; // bhot dhyan se sochna visited[adj.get(vertex).get(i)] yahan pe kyu mark kar re and while ke pehle step mein nahi
+//                 }
+//             }
+//         }
+//         return ans;
+//     }
+// }
