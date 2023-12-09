@@ -33,6 +33,7 @@ class GFG {
 // } Driver Code Ends
 
 // 1st method of implementation 
+// this is much better implementation
 
 // class Solution {
 //     // Function to return Breadth First Traversal of given graph.
@@ -60,29 +61,93 @@ class GFG {
 // }
 
 // 2nd method of implementation
+// understand this soluton using this test case
+// undirected graph with edges (0,1),(0,2),(1,3),(1,4),(2,3),(2,4),(3,5),(4,5) 
+
+// class Solution {
+//     // Function to return Breadth First Traversal of given graph.
+//     public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+//         ArrayList<Integer> ans=new ArrayList<>();
+//         boolean visited[]=new boolean[V];
+//         Queue<Integer> q=new LinkedList<>();
+//         q.add(0);
+//         while(!q.isEmpty())
+//         {
+//             int temp=q.remove();
+//             if(visited[temp]==false)
+//             {
+//                 visited[temp]=true;
+//                 ans.add(temp);
+//                 for(int i=0;i<adj.get(temp).size();i++)
+//                 {
+//                     if(visited[adj.get(temp).get(i)]!=true)
+//                     {
+//                         q.add(adj.get(temp).get(i));
+//                     }
+//                 }
+//             }
+//         }
+//         return ans;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Solution {
     // Function to return Breadth First Traversal of given graph.
     public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
         ArrayList<Integer> ans=new ArrayList<>();
-        boolean visited[]=new boolean[V];
         Queue<Integer> q=new LinkedList<>();
+        boolean visited[]=new boolean[V];
         q.add(0);
+        visited[0]=true;
         while(!q.isEmpty())
         {
-            int temp=q.remove();
-            if(visited[temp]==false)
+            int vertex=q.remove();
+            // visited[vertex]=true;
+            ans.add(vertex);
+            for(int i=0;i<adj.get(vertex).size();i++)
             {
-                visited[temp]=true;
-                ans.add(temp);
-                for(int i=0;i<adj.get(temp).size();i++)
+                if(!visited[adj.get(vertex).get(i)])
                 {
-                    if(visited[adj.get(temp).get(i)]!=true)
-                    {
-                        q.add(adj.get(temp).get(i));
-                    }
+                    q.add(adj.get(vertex).get(i));
+                    visited[adj.get(vertex).get(i)]=true; // bhot dhyan se sochna visited[adj.get(vertex).get(i)] yahan pe kyu mark kar re and while ke pehle step mein nahi
                 }
-                
             }
         }
         return ans;
