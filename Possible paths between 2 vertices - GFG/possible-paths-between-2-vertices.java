@@ -34,31 +34,85 @@ class GFG {
 
 // Let's use DFS in this question
 
+// iski complexity O(v^v) ya fir O(V!) yeahi sahi hai bhai, actually na ham baar baar vis=false kar re iss liye harr node 
+// ke liye uske saare neighbours tak ja rahe hai hum
+
+// class Solution {
+//     // Function to count paths between two vertices in a directed graph.
+//     public int countPaths(int V, ArrayList<ArrayList<Integer>> adj, int source,
+//                   int destination) {
+//       boolean visited[]=new boolean[V];
+//       int a[]=new int[1];
+//       helper(adj,source,destination,a,visited);
+//       return a[0];
+//     }
+//     public void helper(ArrayList<ArrayList<Integer>> adj,int source,int destination,int a[],boolean visited[])
+//     {
+//         if(source==destination)
+//         {
+//             a[0]++;
+//             return;
+//         }
+//         if(visited[source]==true)
+//         {
+//             return;
+//         }
+//         visited[source]=true;
+//         for(int i=0;i<adj.get(source).size();i++)
+//         {
+//             helper(adj,adj.get(source).get(i),destination,a,visited);
+//             visited[adj.get(source).get(i)]=false;
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Solution {
     // Function to count paths between two vertices in a directed graph.
     public int countPaths(int V, ArrayList<ArrayList<Integer>> adj, int source,
                    int destination) {
-       boolean visited[]=new boolean[V];
-       int a[]=new int[1];
-       helper(adj,source,destination,a,visited);
-       return a[0];
-    }
-    public void helper(ArrayList<ArrayList<Integer>> adj,int source,int destination,int a[],boolean visited[])
+                       return helper(adj,source,destination);
+                   }
+    public int helper(ArrayList<ArrayList<Integer>> adj,int source,int destination)
     {
         if(source==destination)
         {
-            a[0]++;
-            return;
+            return 1;
         }
-        if(visited[source]==true)
-        {
-            return;
-        }
-        visited[source]=true;
+        int count=0;
         for(int i=0;i<adj.get(source).size();i++)
         {
-            helper(adj,adj.get(source).get(i),destination,a,visited);
-            visited[adj.get(source).get(i)]=false;
+            count+=helper(adj,adj.get(source).get(i),destination);
         }
+        return count;
     }
 }
