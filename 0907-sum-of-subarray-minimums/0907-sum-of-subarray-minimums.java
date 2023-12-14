@@ -51,23 +51,90 @@
 
 
 
+// class Solution {
+//     public int sumSubarrayMins(int[] arr) {
+//        long ans=0;
+//        int nSR[]=new int[arr.length]; // next Striclty smaller on the right
+//        int nSL[]=new int[arr.length]; // next smaller or equal to on left
+//        Arrays.fill(nSR,arr.length);
+//        Arrays.fill(nSL,-1);
+//        fillnSL(nSL,arr);
+//        fillnSR(nSR,arr);
+//        for(int i=0;i<arr.length;i++)
+//        {
+//            ans=(ans+(1L*(i-nSL[i])*(nSR[i]-i)*arr[i]))%1000000007; // yahan 1L se multiply karna bhot zaruri tha infact 1L expression ke start mein likhna bhi bhot zaruri tha (i-nSL[i])*(nSR[i]-i)*arr[i]*1L pe bhi nahi chalega kyunki till that time calculation already int bounds ke bahar ja chuki hai and last mein keh re tum ki yeh long calculation hai
+//        }
+//        return (int)ans;
+//     }
+//     public void fillnSL(int nSL[],int arr[])
+//     {
+//         Stack<Integer> st=new Stack<>();
+//         for(int i=0;i<arr.length;i++)
+//         {
+//             while(!st.isEmpty()&&arr[st.peek()]>arr[i])
+//             {
+//                 st.pop();
+//             }
+//             if(!st.isEmpty())
+//             {
+//                 nSL[i]=st.peek();
+//             }
+//             st.push(i);
+//         }
+//     }
+//     public void fillnSR(int nSR[],int arr[])
+//     {
+//         Stack<Integer> st=new Stack<>();
+//         for(int i=arr.length-1;i>=0;i--)
+//         {
+//             while(!st.isEmpty()&&arr[st.peek()]>=arr[i])
+//             {
+//                 st.pop();
+//             }
+//             if(!st.isEmpty())
+//             {
+//                 nSR[i]=st.peek();
+//             }
+//             st.push(i);
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Solution {
     public int sumSubarrayMins(int[] arr) {
-       long ans=0;
-       int nSR[]=new int[arr.length]; // next Striclty smaller on the right
-       int nSL[]=new int[arr.length]; // next smaller or equal to on left
-       Arrays.fill(nSR,arr.length);
-       Arrays.fill(nSL,-1);
-       fillnSL(nSL,arr);
-       fillnSR(nSR,arr);
+       // we need NSL and NSR index 
+       int NSL[]=new int[arr.length];
+       int NSR[]=new int[arr.length];
+       int mod=1000000007;
+        long ans=0;
+       buildNSL(NSL,arr);
+       buildNSR(NSR,arr);
        for(int i=0;i<arr.length;i++)
        {
-           ans=(ans+(1L*(i-nSL[i])*(nSR[i]-i)*arr[i]))%1000000007; // yahan 1L se multiply karna bhot zaruri tha infact 1L expression ke start mein likhna bhi bhot zaruri tha (i-nSL[i])*(nSR[i]-i)*arr[i]*1L pe bhi nahi chalega kyunki till that time calculation already int bounds ke bahar ja chuki hai and last mein keh re tum ki yeh long calculation hai
+           ans=(ans+1L*arr[i]*(NSR[i]-i)*(i-NSL[i]))%mod;
        }
-       return (int)ans;
+       return (int)ans%mod;
     }
-    public void fillnSL(int nSL[],int arr[])
+    public void buildNSL(int NSL[],int arr[])
     {
+        // for NSL we will consider next strictly smaller on left
         Stack<Integer> st=new Stack<>();
         for(int i=0;i<arr.length;i++)
         {
@@ -75,15 +142,20 @@ class Solution {
             {
                 st.pop();
             }
-            if(!st.isEmpty())
+            if(st.isEmpty())
             {
-                nSL[i]=st.peek();
+                NSL[i]=-1;
+            }
+            else
+            {
+                NSL[i]=st.peek();
             }
             st.push(i);
         }
     }
-    public void fillnSR(int nSR[],int arr[])
+    public void buildNSR(int NSR[],int arr[])
     {
+        // for NSR we will next smaller on right (not strictly smaller)
         Stack<Integer> st=new Stack<>();
         for(int i=arr.length-1;i>=0;i--)
         {
@@ -91,9 +163,13 @@ class Solution {
             {
                 st.pop();
             }
-            if(!st.isEmpty())
+            if(st.isEmpty())
             {
-                nSR[i]=st.peek();
+                NSR[i]=arr.length;
+            }
+            else
+            {
+                NSR[i]=st.peek();
             }
             st.push(i);
         }
