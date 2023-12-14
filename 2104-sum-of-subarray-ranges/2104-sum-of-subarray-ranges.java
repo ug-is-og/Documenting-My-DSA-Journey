@@ -1,53 +1,114 @@
-// Sliding Window Based Question
-// This question is very similar to the one where we find maxium in all subarrays of size K, ussi se inspired hai 
-// Deque ka use kiya hamne, kaafi mushkil aayi parr end mein ho hi gaya
-// https://leetcode.com/problems/sliding-window-maximum/description/
-
 class Solution {
     public long subArrayRanges(int[] nums) {
-        long sum=0;
-        for(int k=1;k<=nums.length;k++)
+        // basic funda samjho, Sum of subarray ranges= summantion(subarray maximums)-summation(subarray minimums)
+        long maxSummation=findSumMaximums(nums);
+        long minSummation=findSumMinimums(nums);
+        return maxSummation-minSummation;
+    }
+    public long findSumMaximums(int nums[])
+    {
+        long ans=0;
+        int NGR[]=new int[nums.length];
+        int NGL[]=new int[nums.length];
+        fillNGL(nums,NGL);
+        fillNGR(nums,NGR);
+        for(int i=0;i<nums.length;i++)
         {
-            int max=Integer.MIN_VALUE;
-            int min=Integer.MAX_VALUE;
-            Deque<Integer> dqMax=new ArrayDeque<>();
-            Deque<Integer> dqMin=new ArrayDeque<>();
-            for(int j=0;j<k;j++)
-            {
-                while(!dqMax.isEmpty()&&dqMax.getLast()<nums[j])
-                dqMax.removeLast();
-                dqMax.addLast(nums[j]);
-                while(!dqMin.isEmpty()&&dqMin.getLast()>nums[j])
-                dqMin.removeLast();
-                dqMin.addLast(nums[j]);
-                max=dqMax.getFirst();
-                min=dqMin.getFirst();
-            }
-            sum=sum+max-min;
-            int i=0,j=k;
-            while(j<nums.length)
-            {
-                if(dqMax.getFirst()==nums[i])
-                {
-                    dqMax.removeFirst();
-                }
-                while(!dqMax.isEmpty()&&dqMax.getLast()<nums[j])
-                dqMax.removeLast();
-                dqMax.addLast(nums[j]);
-                if(dqMin.getFirst()==nums[i])
-                {
-                    dqMin.removeFirst();
-                }
-                while(!dqMin.isEmpty()&&dqMin.getLast()>nums[j])
-                dqMin.removeLast();
-                dqMin.addLast(nums[j]);
-                max=dqMax.getFirst();
-                min=dqMin.getFirst();
-                sum=sum+max-min;
-                i++;
-                j++;
-            }
+            ans=ans+1L*nums[i]*(i-NGL[i])*(NGR[i]-i);
         }
-        return sum;
+        return ans;
+    }
+    public long findSumMinimums(int nums[])
+    {
+        long ans=0;
+        int NSR[]=new int[nums.length];
+        int NSL[]=new int[nums.length];
+        fillNSR(nums,NSR);
+        fillNSL(nums,NSL);
+        for(int i=0;i<nums.length;i++)
+        {
+            ans=ans+1L*nums[i]*(i-NSL[i])*(NSR[i]-i);
+        }
+        return ans;
+    }
+    public void fillNGL(int nums[],int NGL[])
+    {
+        Stack<Integer> st=new Stack<>();
+        for(int i=0;i<nums.length;i++)
+        {
+            while(!st.isEmpty()&&nums[st.peek()]<nums[i])
+            {
+                st.pop();
+            }
+            if(st.isEmpty())
+            {
+                NGL[i]=-1;
+            }
+            else
+            {
+                NGL[i]=st.peek();
+            }
+            st.push(i);
+        }
+    }
+    public void fillNSL(int nums[],int NSL[])
+    {
+        Stack<Integer> st=new Stack<>();
+        for(int i=0;i<nums.length;i++)
+        {
+            while(!st.isEmpty()&&nums[st.peek()]>nums[i])
+            {
+                st.pop();
+            }
+            if(st.isEmpty())
+            {
+                NSL[i]=-1;
+            }
+            else
+            {
+                NSL[i]=st.peek();
+            }
+            st.push(i);
+        }
+    }
+    public void fillNSR(int nums[],int NSR[])
+    {
+        Stack<Integer> st=new Stack<>();
+        for(int i=nums.length-1;i>=0;i--)
+        {
+            while(!st.isEmpty()&&nums[st.peek()]>=nums[i])
+            {
+                st.pop();
+            }
+            if(st.isEmpty())
+            {
+                NSR[i]=nums.length;
+            }
+            else
+            {
+                NSR[i]=st.peek();
+            }
+            st.push(i);
+        }
+    }
+    public void fillNGR(int nums[],int NGR[])
+    {
+        Stack<Integer> st=new Stack<>();
+        for(int i=nums.length-1;i>=0;i--)
+        {
+            while(!st.isEmpty()&&nums[st.peek()]<=nums[i])
+            {
+                st.pop();
+            }
+            if(st.isEmpty())
+            {
+                NGR[i]=nums.length;
+            }
+            else
+            {
+                NGR[i]=st.peek();
+            }
+            st.push(i);
+        }
     }
 }
