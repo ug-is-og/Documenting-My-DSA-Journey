@@ -33,6 +33,48 @@
 
 // dfs approach
 
+// class Solution {
+//     public int numIslands(char[][] grid) {
+//         boolean visited[][]=new boolean[grid.length][grid[0].length];
+//         int count=0;
+//         for(int i=0;i<grid.length;i++)
+//         {
+//             for(int j=0;j<grid[0].length;j++)
+//             {
+//                 if(grid[i][j]=='1'&&!visited[i][j])
+//                 {
+//                     visited[i][j]=true;
+//                     count++;
+//                     dfs(visited,grid,i,j);
+//                 }
+//             }
+//         }
+//         return count;
+//     }
+//     public void dfs(boolean visited[][],char grid[][],int i,int j)
+//     {
+//         int rows[]={-1,0,1,0};
+//         int cols[]={0,1,0,-1};
+//         for(int k=0;k<rows.length;k++)
+//         {
+//             int row=rows[k]+i;
+//             int col=cols[k]+j;
+//             if(row>=0&&row<grid.length&&col>=0&&col<grid[0].length&&grid[i][j]=='1'&&!visited[row][col])
+//             {
+//                 visited[row][col]=true;
+//                 dfs(visited,grid,row,col);
+//             }
+//         }
+//     }
+// }
+
+
+
+
+
+
+// dfs approach
+
 class Solution {
     public int numIslands(char[][] grid) {
         boolean visited[][]=new boolean[grid.length][grid[0].length];
@@ -43,26 +85,25 @@ class Solution {
             {
                 if(grid[i][j]=='1'&&!visited[i][j])
                 {
-                    visited[i][j]=true;
                     count++;
-                    dfs(visited,grid,i,j);
+                    dfs(grid,visited,i,j);
                 }
             }
         }
         return count;
     }
-    public void dfs(boolean visited[][],char grid[][],int i,int j)
+    public void dfs(char grid[][],boolean visited[][],int i,int j)
     {
-        int rows[]={-1,0,1,0};
+        visited[i][j]=true;
+        int rows[]={1,0,-1,0};
         int cols[]={0,1,0,-1};
-        for(int k=0;k<rows.length;k++)
+        for(int m=0;m<rows.length;m++)
         {
-            int row=rows[k]+i;
-            int col=cols[k]+j;
-            if(row>=0&&row<grid.length&&col>=0&&col<grid[0].length&&grid[i][j]=='1'&&!visited[row][col])
+            int row=rows[m]+i;
+            int col=cols[m]+j;
+            if(row>=0&&row<grid.length&&col>=0&&col<grid[0].length&&grid[row][col]=='1'&&!visited[row][col])
             {
-                visited[row][col]=true;
-                dfs(visited,grid,row,col);
+                dfs(grid,visited,row,col);
             }
         }
     }
