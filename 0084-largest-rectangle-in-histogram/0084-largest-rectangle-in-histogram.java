@@ -52,57 +52,115 @@
 
 
 
+// class Solution {
+//     public int largestRectangleArea(int[] heights) {
+//         int NSL[]=new int[heights.length];
+//         int NSR[]=new int[heights.length];
+//         buildNSL(NSL,heights);
+//         buildNSR(NSR,heights);
+//         int ans=Integer.MIN_VALUE;
+//         for(int k=0;k<heights.length;k++)
+//         {
+//             ans=Math.max(ans,(NSR[k]-NSL[k]-1)*heights[k]);
+//         }
+//         return ans;
+//     }
+//     public void buildNSL(int NSL[],int heights[])
+//     {
+//         Stack<Integer> st=new Stack<>();
+//         for(int k=0;k<heights.length;k++)
+//         {
+//             while(!st.isEmpty()&&heights[st.peek()]>=heights[k])
+//             {
+//                 st.pop();
+//             }
+//             if(st.isEmpty())
+//             {
+//                 NSL[k]=-1;
+//             }
+//             else
+//             {
+//                 NSL[k]=st.peek();
+//             }
+//             st.push(k);
+//         }
+//     }
+//     public void buildNSR(int NSR[],int heights[])
+//     {
+//         Stack<Integer> st=new Stack<>();
+//         for(int k=heights.length-1;k>=0;k--)
+//         {
+//             while(!st.isEmpty()&&heights[st.peek()]>=heights[k])
+//             {
+//                 st.pop();
+//             }
+//             if(st.isEmpty())
+//             {
+//                 NSR[k]=heights.length;
+//             }
+//             else
+//             {
+//                 NSR[k]=st.peek();
+//             }
+//             st.push(k);
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// most optimal approach
+// https://www.youtube.com/watch?v=jC_cWLy7jSI
+
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        int NSL[]=new int[heights.length];
-        int NSR[]=new int[heights.length];
-        buildNSL(NSL,heights);
-        buildNSR(NSR,heights);
-        int ans=Integer.MIN_VALUE;
-        for(int k=0;k<heights.length;k++)
+        int ans=0;
+        Stack<Integer> st=new Stack<>();
+        for(int i=0;i<=heights.length;i++)
         {
-            ans=Math.max(ans,(NSR[k]-NSL[k]-1)*heights[k]);
+            while(!st.isEmpty()&&(i==heights.length||heights[st.peek()]>=heights[i]))
+            {
+                int temp=st.peek();
+                st.pop();
+                int width=0;
+                if(st.isEmpty())
+                {
+                    width=i;
+                }
+                else
+                {
+                    width=i-st.peek()-1;
+                }
+                ans=Math.max(ans,width*heights[temp]);
+            }
+            st.push(i);
         }
         return ans;
-    }
-    public void buildNSL(int NSL[],int heights[])
-    {
-        Stack<Integer> st=new Stack<>();
-        for(int k=0;k<heights.length;k++)
-        {
-            while(!st.isEmpty()&&heights[st.peek()]>=heights[k])
-            {
-                st.pop();
-            }
-            if(st.isEmpty())
-            {
-                NSL[k]=-1;
-            }
-            else
-            {
-                NSL[k]=st.peek();
-            }
-            st.push(k);
-        }
-    }
-    public void buildNSR(int NSR[],int heights[])
-    {
-        Stack<Integer> st=new Stack<>();
-        for(int k=heights.length-1;k>=0;k--)
-        {
-            while(!st.isEmpty()&&heights[st.peek()]>=heights[k])
-            {
-                st.pop();
-            }
-            if(st.isEmpty())
-            {
-                NSR[k]=heights.length;
-            }
-            else
-            {
-                NSR[k]=st.peek();
-            }
-            st.push(k);
-        }
     }
 }
