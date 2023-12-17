@@ -62,7 +62,7 @@ class Solution {
                 int u=edges.get(j).get(0);
                 int v=edges.get(j).get(1);
                 int w=edges.get(j).get(2);
-                if(ans[u]!=(int)1e8&&ans[u]+w<ans[v])
+                if(ans[u]!=(int)1e8&&ans[u]+w<ans[v]) // ans[u]!=(int)
                 {
                     ans[v]=ans[u]+w;
                 }
