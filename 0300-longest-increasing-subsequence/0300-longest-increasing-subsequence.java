@@ -180,28 +180,59 @@
 
 // Tabulation optimization 1
 
+// class Solution {
+//     public int lengthOfLIS(int[] nums) {
+//         int next[]=new int[nums.length+1];
+//         int curr[]=new int[nums.length+1];
+//         for(int i=nums.length-1;i>=0;i--)
+//         {
+//             for(int j=i-1;j>=-1;j--)
+//             {
+//                 int ans2=0;
+//                 int ans1=next[j+1];
+//                 if(j==-1||nums[i]>nums[j])
+//                 {
+//                     ans2=1+next[i+1];
+//                 }
+//                 curr[j+1]=Math.max(ans1,ans2);
+//             }
+//             // next-curr
+//             for(int k=0;k<next.length;k++)
+//             {
+//                 next[k]=curr[k];
+//             }
+//         }
+//         return curr[-1+1]; // yahan pe next[0] bhi kar sakte the
+//     }
+// }
+
+
+
+
+// most optimal approach
+
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int next[]=new int[nums.length+1];
-        int curr[]=new int[nums.length+1];
-        for(int i=nums.length-1;i>=0;i--)
+        int dp[]=new int[nums.length];
+        int globalMax=1;
+        Arrays.fill(dp,1);
+        for(int i=1;i<dp.length;i++)
         {
-            for(int j=i-1;j>=-1;j--)
+            int max=Integer.MIN_VALUE;
+            for(int j=0;j<i;j++)
             {
-                int ans2=0;
-                int ans1=next[j+1];
-                if(j==-1||nums[i]>nums[j])
+                if(nums[j]<nums[i])
                 {
-                    ans2=1+next[i+1];
+                    max=Math.max(max,dp[j]);
                 }
-                curr[j+1]=Math.max(ans1,ans2);
             }
-            // next-curr
-            for(int k=0;k<next.length;k++)
-            {
-                next[k]=curr[k];
-            }
+            if(max!=Integer.MIN_VALUE)
+            dp[i]=max+1;
+            else
+            dp[i]=1;
+            System.out.println(dp[i]);
+            globalMax=Math.max(globalMax,dp[i]);
         }
-        return curr[-1+1];
+        return globalMax;
     }
 }
