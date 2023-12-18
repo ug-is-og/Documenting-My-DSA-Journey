@@ -90,23 +90,64 @@
 
 // Optimal approach in O(n^2) TC and O(n) SC
 
+// class Solution {
+//     public int lengthOfLIS(int[] nums) {
+//         int dp[]=new int[nums.length];
+//         Arrays.fill(dp,1);
+//         for(int i=1;i<dp.length;i++)
+//         {
+//             int max=0;
+//             for(int j=0;j<i;j++)
+//             {
+//                 if(nums[j]<nums[i])
+//                 max=Math.max(max,dp[j]);
+//             }
+//             dp[i]=max+1;
+//         }
+//         int max=0;
+//         for(int a:dp)
+//         max=Math.max(max,a);
+//         return max;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int dp[]=new int[nums.length];
-        Arrays.fill(dp,1);
-        for(int i=1;i<dp.length;i++)
+       int dp[][]=new int[nums.length][nums.length+1];
+       for(int temp[]:dp)
+       {
+           Arrays.fill(temp,-1);
+       }
+       return helper(dp,nums,0,-1);
+    }
+    public int helper(int dp[][],int nums[],int index,int prevIndex)
+    {
+        if(index==nums.length)
         {
-            int max=0;
-            for(int j=0;j<i;j++)
-            {
-                if(nums[j]<nums[i])
-                max=Math.max(max,dp[j]);
-            }
-            dp[i]=max+1;
+            return 0;
         }
-        int max=0;
-        for(int a:dp)
-        max=Math.max(max,a);
-        return max;
+        if(dp[index][prevIndex+1]!=-1) // jab dp ki baat kar re toh prevIndex+1 leke chal re, kyunki bilkul start mein hamne prevIndex ko -1 bheja tha toh usko compensate karne hetu, issi liye size nums.length+1 rakha hai dp mein for prevIndex
+
+// hamne basically aesi definition banayi hai ki dp[index][prevIndex] ki value ka matlab if I am at "index" and prevIndex is  "prevIndex-1" toh kya aayega length of LIS
+        {
+            return dp[index][prevIndex+1];
+        }
+        int ans1=0,ans2=0;
+        ans1=helper(dp,nums,index+1,prevIndex);
+        if(prevIndex==-1||nums[index]>nums[prevIndex])
+        ans2=1+helper(dp,nums,index+1,index);
+        return dp[index][prevIndex+1]=Math.max(ans1,ans2);
     }
 }
