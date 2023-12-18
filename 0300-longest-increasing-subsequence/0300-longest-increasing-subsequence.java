@@ -123,31 +123,55 @@
 
 
 
+// class Solution {
+//     public int lengthOfLIS(int[] nums) {
+//        int dp[][]=new int[nums.length][nums.length+1];
+//        for(int temp[]:dp)
+//        {
+//            Arrays.fill(temp,-1);
+//        }
+//        return helper(dp,nums,0,-1);
+//     }
+//     public int helper(int dp[][],int nums[],int index,int prevIndex)
+//     {
+//         if(index==nums.length)
+//         {
+//             return 0;
+//         }
+//         if(dp[index][prevIndex+1]!=-1) // jab dp ki baat kar re toh prevIndex+1 leke chal re, kyunki bilkul start mein hamne prevIndex ko -1 bheja tha toh usko compensate karne hetu, issi liye size nums.length+1 rakha hai dp mein for prevIndex
+
+// // hamne basically aesi definition banayi hai ki dp[index][prevIndex] ki value ka matlab if I am at "index" and prevIndex is  "prevIndex-1" toh kya aayega length of LIS
+//         {
+//             return dp[index][prevIndex+1];
+//         }
+//         int ans1=0,ans2=0;
+//         ans1=helper(dp,nums,index+1,prevIndex);
+//         if(prevIndex==-1||nums[index]>nums[prevIndex])
+//         ans2=1+helper(dp,nums,index+1,index);
+//         return dp[index][prevIndex+1]=Math.max(ans1,ans2);
+//     }
+// }
+
+
+// tabulation of the above memoization approach
+
 class Solution {
     public int lengthOfLIS(int[] nums) {
-       int dp[][]=new int[nums.length][nums.length+1];
-       for(int temp[]:dp)
-       {
-           Arrays.fill(temp,-1);
-       }
-       return helper(dp,nums,0,-1);
-    }
-    public int helper(int dp[][],int nums[],int index,int prevIndex)
-    {
-        if(index==nums.length)
+        int dp[][]=new int[nums.length+1][nums.length+1];
+        // nums.length wali puri row ko 0 initialise karna hai par pehle se 0 hai toh nahi karenge kuch
+        for(int i=nums.length-1;i>=0;i--)
         {
-            return 0;
+            for(int j=i-1;j>=-1;j--)
+            {
+                int ans2=0;
+                int ans1=dp[i+1][j+1];
+                if(j==-1||nums[i]>nums[j])
+                {
+                    ans2=1+dp[i+1][i+1];
+                }
+                dp[i][j+1]=Math.max(ans1,ans2);
+            }
         }
-        if(dp[index][prevIndex+1]!=-1) // jab dp ki baat kar re toh prevIndex+1 leke chal re, kyunki bilkul start mein hamne prevIndex ko -1 bheja tha toh usko compensate karne hetu, issi liye size nums.length+1 rakha hai dp mein for prevIndex
-
-// hamne basically aesi definition banayi hai ki dp[index][prevIndex] ki value ka matlab if I am at "index" and prevIndex is  "prevIndex-1" toh kya aayega length of LIS
-        {
-            return dp[index][prevIndex+1];
-        }
-        int ans1=0,ans2=0;
-        ans1=helper(dp,nums,index+1,prevIndex);
-        if(prevIndex==-1||nums[index]>nums[prevIndex])
-        ans2=1+helper(dp,nums,index+1,index);
-        return dp[index][prevIndex+1]=Math.max(ans1,ans2);
+        return dp[0][-1+1];
     }
 }
