@@ -155,23 +155,53 @@
 
 // tabulation of the above memoization approach
 
+// class Solution {
+//     public int lengthOfLIS(int[] nums) {
+//         int dp[][]=new int[nums.length+1][nums.length+1];
+//         // nums.length wali puri row ko 0 initialise karna hai par pehle se 0 hai toh nahi karenge kuch
+//         for(int i=nums.length-1;i>=0;i--)
+//         {
+//             for(int j=i-1;j>=-1;j--)
+//             {
+//                 int ans2=0;
+//                 int ans1=dp[i+1][j+1];
+//                 if(j==-1||nums[i]>nums[j])
+//                 {
+//                     ans2=1+dp[i+1][i+1];
+//                 }
+//                 dp[i][j+1]=Math.max(ans1,ans2);
+//             }
+//         }
+//         return dp[0][-1+1];
+//     }
+// }
+
+
+
+// Tabulation optimization 1
+
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int dp[][]=new int[nums.length+1][nums.length+1];
-        // nums.length wali puri row ko 0 initialise karna hai par pehle se 0 hai toh nahi karenge kuch
+        int next[]=new int[nums.length+1];
+        int curr[]=new int[nums.length+1];
         for(int i=nums.length-1;i>=0;i--)
         {
             for(int j=i-1;j>=-1;j--)
             {
                 int ans2=0;
-                int ans1=dp[i+1][j+1];
+                int ans1=next[j+1];
                 if(j==-1||nums[i]>nums[j])
                 {
-                    ans2=1+dp[i+1][i+1];
+                    ans2=1+next[i+1];
                 }
-                dp[i][j+1]=Math.max(ans1,ans2);
+                curr[j+1]=Math.max(ans1,ans2);
+            }
+            // next-curr
+            for(int k=0;k<next.length;k++)
+            {
+                next[k]=curr[k];
             }
         }
-        return dp[0][-1+1];
+        return curr[-1+1];
     }
 }
