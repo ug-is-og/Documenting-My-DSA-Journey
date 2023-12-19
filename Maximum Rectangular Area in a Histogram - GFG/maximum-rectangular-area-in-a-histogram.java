@@ -25,65 +25,107 @@ class GFG {
 // } Driver Code Ends
 
 
+// class Solution
+// {
+//     //Function to find largest rectangular area possible in a given histogram.
+//     public static long getMaxArea(long hist[], long n) 
+//     {
+//         int k=(int)n;
+//         int NSR[]=new int[k];
+//         int NSL[]=new int[k];
+//         buildNSR(NSR,hist,k);
+//         buildNSL(NSL,hist,k);
+//         long ans=0;
+//         for(int i=0;i<k;i++)
+//         {
+//             ans=Math.max(ans,(NSR[i]-NSL[i]-1)*hist[i]);
+//         }
+//         return ans;
+//     }
+//     public static void buildNSL(int NSL[],long hist[],int n)
+//     {
+//         Stack<Integer> st=new Stack<>();
+//         for(int i=0;i<n;i++)
+//         {
+//             while(!st.isEmpty()&&hist[st.peek()]>=hist[i]) // = ka khas dhyan dena 
+//             {
+//                 st.pop();
+//             }
+//             if(st.isEmpty())
+//             {
+//                 NSL[i]=-1;
+//             }
+//             else
+//             {
+//                 NSL[i]=st.peek();
+//             }
+//             st.push(i);
+//         }
+//     }
+//     public static void buildNSR(int NSR[],long hist[],int n)
+//     {
+//         Stack<Integer> st=new Stack<>();
+//         for(int i=n-1;i>=0;i--)
+//         {
+//             while(!st.isEmpty()&&hist[st.peek()]>=hist[i]) // = ka khas dhyan dena 
+//             {
+//                 st.pop();
+//             }
+//             if(st.isEmpty())
+//             {
+//                 NSR[i]=n;
+//             }
+//             else
+//             {
+//                 NSR[i]=st.peek();
+//             }
+//             st.push(i);
+//         }
+//     }
+        
+// }
+
+
+
+
+
+// most optimal approach for this question
+// https://www.youtube.com/watch?v=jC_cWLy7jSI&t=1017s
+
 class Solution
 {
     //Function to find largest rectangular area possible in a given histogram.
     public static long getMaxArea(long hist[], long n) 
     {
         int k=(int)n;
-        int NSR[]=new int[k];
-        int NSL[]=new int[k];
-        buildNSR(NSR,hist,k);
-        buildNSL(NSL,hist,k);
+        int leftSmaller=0;
+        int width=0;
         long ans=0;
-        for(int i=0;i<k;i++)
+        Stack<Integer> st=new Stack<>();
+        for(int i=0;i<=n;i++)
         {
-            ans=Math.max(ans,(NSR[i]-NSL[i]-1)*hist[i]);
+            while(!st.isEmpty()&&(i==n||hist[st.peek()]>=hist[i]))
+            {
+                long height=hist[st.peek()];
+                st.pop();
+                if(st.isEmpty())
+                {
+                    leftSmaller=-1;
+                }
+                else
+                {
+                    leftSmaller=st.peek();
+                }
+                width=i-leftSmaller-1;
+                ans=Math.max(ans,width*height);
+            }
+            st.push(i);
         }
         return ans;
-    }
-    public static void buildNSL(int NSL[],long hist[],int n)
-    {
-        Stack<Integer> st=new Stack<>();
-        for(int i=0;i<n;i++)
-        {
-            while(!st.isEmpty()&&hist[st.peek()]>=hist[i])
-            {
-                st.pop();
-            }
-            if(st.isEmpty())
-            {
-                NSL[i]=-1;
-            }
-            else
-            {
-                NSL[i]=st.peek();
-            }
-            st.push(i);
-        }
-    }
-    public static void buildNSR(int NSR[],long hist[],int n)
-    {
-        Stack<Integer> st=new Stack<>();
-        for(int i=n-1;i>=0;i--)
-        {
-            while(!st.isEmpty()&&hist[st.peek()]>=hist[i])
-            {
-                st.pop();
-            }
-            if(st.isEmpty())
-            {
-                NSR[i]=n;
-            }
-            else
-            {
-                NSR[i]=st.peek();
-            }
-            st.push(i);
-        }
-    }
-        
+    }    
 }
+
+
 
 
 
