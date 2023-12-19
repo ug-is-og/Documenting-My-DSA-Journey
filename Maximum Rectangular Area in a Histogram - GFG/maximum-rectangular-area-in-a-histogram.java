@@ -30,57 +30,59 @@ class Solution
     //Function to find largest rectangular area possible in a given histogram.
     public static long getMaxArea(long hist[], long n) 
     {
-       // we need next smaller element to the left
-       // also next smaller element to the right
-       int NSL[]=new int[(int)n];
-       int NSR[]=new int[(int)n];
-       fillNSL(NSL,hist);
-       fillNSR(NSR,hist);
-       return operations(NSL,NSR,hist);
-    }
-    public static long operations(int NSL[],int NSR[],long hist[])
-    {
-        long maxArea=0;
-        long tempArea=0;
-        for(int i=0;i<hist.length;i++)
+        int k=(int)n;
+        int NSR[]=new int[k];
+        int NSL[]=new int[k];
+        buildNSR(NSR,hist,k);
+        buildNSL(NSL,hist,k);
+        long ans=0;
+        for(int i=0;i<k;i++)
         {
-            tempArea=hist[i]*((NSR[i]-1)-(NSL[i]+1)+1);
-            maxArea=Math.max(maxArea,tempArea);
+            ans=Math.max(ans,(NSR[i]-NSL[i]-1)*hist[i]);
         }
-        return maxArea;
+        return ans;
     }
-    public static void fillNSR(int NSR[],long hist[])
+    public static void buildNSL(int NSL[],long hist[],int n)
     {
-        NSR[NSR.length-1]=hist.length;
         Stack<Integer> st=new Stack<>();
-        st.add(hist.length-1);// indexes ke saath khelo
-        for(int i=hist.length-2;i>=0;i--)
+        for(int i=0;i<n;i++)
         {
             while(!st.isEmpty()&&hist[st.peek()]>=hist[i])
-            st.pop();
+            {
+                st.pop();
+            }
             if(st.isEmpty())
-            NSR[i]=hist.length;
+            {
+                NSL[i]=-1;
+            }
             else
-            NSR[i]=st.peek();
-            st.add(i);
+            {
+                NSL[i]=st.peek();
+            }
+            st.push(i);
         }
     }
-    public static void fillNSL(int NSL[],long hist[])
+    public static void buildNSR(int NSR[],long hist[],int n)
     {
-        NSL[0]=-1;
         Stack<Integer> st=new Stack<>();
-        st.add(0);// indexes se saath khelo
-        for(int i=1;i<NSL.length;i++)
+        for(int i=n-1;i>=0;i--)
         {
             while(!st.isEmpty()&&hist[st.peek()]>=hist[i])
-            st.pop();
+            {
+                st.pop();
+            }
             if(st.isEmpty())
-            NSL[i]=-1;
+            {
+                NSR[i]=n;
+            }
             else
-            NSL[i]=st.peek();
-            st.add(i);
+            {
+                NSR[i]=st.peek();
+            }
+            st.push(i);
         }
     }
+        
 }
 
 
