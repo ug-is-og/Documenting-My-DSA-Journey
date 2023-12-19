@@ -50,37 +50,78 @@ class DriverClass {
 *   S: source vertex to start traversing graph with
 *   V: number of vertices
 */
+// class Solution {
+//     static int[] bellman_ford(int V, ArrayList<ArrayList<Integer>> edges, int S) {
+//         int ans[]=new int[V];
+//         Arrays.fill(ans,(int)1e8);
+//         ans[S]=0;
+//         for(int i=0;i<V-1;i++)
+//         {
+//             for(int j=0;j<edges.size();j++)
+//             {
+//                 int u=edges.get(j).get(0);
+//                 int v=edges.get(j).get(1);
+//                 int w=edges.get(j).get(2);
+//                 if(ans[u]!=(int)1e8&&ans[u]+w<ans[v]) // ans[u]!=(int)1e8 wali condition ka khass dhyan rakhna
+//                 {
+//                     ans[v]=ans[u]+w;
+//                 }
+//             }
+//         }
+//         int tempAns[]=new int[1];
+//         // do the Nth iteration for negative cycle detection
+//         for(int j=0;j<edges.size();j++)
+//         {
+//             int u=edges.get(j).get(0);
+//             int v=edges.get(j).get(1);
+//             int w=edges.get(j).get(2);
+//             if(ans[u]!=(int)1e8&&ans[u]+w<ans[v])
+//             {
+//                 tempAns[0]=-1;
+//                 return tempAns;
+//             }
+//         }
+//         return ans;
+//     }
+// }
+
+
+
+
+
+
 class Solution {
     static int[] bellman_ford(int V, ArrayList<ArrayList<Integer>> edges, int S) {
-        int ans[]=new int[V];
-        Arrays.fill(ans,(int)1e8);
-        ans[S]=0;
-        for(int i=0;i<V-1;i++)
-        {
-            for(int j=0;j<edges.size();j++)
-            {
-                int u=edges.get(j).get(0);
-                int v=edges.get(j).get(1);
-                int w=edges.get(j).get(2);
-                if(ans[u]!=(int)1e8&&ans[u]+w<ans[v]) // ans[u]!=(int)
-                {
-                    ans[v]=ans[u]+w;
-                }
-            }
-        }
-        int tempAns[]=new int[1];
-        // do the Nth iteration for negative cycle detection
-        for(int j=0;j<edges.size();j++)
-        {
-            int u=edges.get(j).get(0);
-            int v=edges.get(j).get(1);
-            int w=edges.get(j).get(2);
-            if(ans[u]!=(int)1e8&&ans[u]+w<ans[v])
-            {
-                tempAns[0]=-1;
-                return tempAns;
-            }
-        }
-        return ans;
+       int ans[]=new int[V];
+       Arrays.fill(ans,(int)1e8);
+       ans[S]=0;
+       // do the relaxation of edges N-1 times
+       for(int i=0;i<V-1;i++)
+       {
+           for(int j=0;j<edges.size();j++)
+           {
+               int u=edges.get(j).get(0);
+               int v=edges.get(j).get(1);
+               int w=edges.get(j).get(2);
+               if(ans[u]!=(int)1e8&&ans[u]+w<ans[v])
+               {
+                   ans[v]=ans[u]+w;
+               }
+           }
+       }
+       // lets check for negative cycle
+       int neg[]=new int[1];
+       for(int j=0;j<edges.size();j++)
+       {
+           int u=edges.get(j).get(0);
+           int v=edges.get(j).get(1);
+           int w=edges.get(j).get(2);
+           if(ans[u]!=(int)1e8&&ans[u]+w<ans[v])
+           {
+               neg[0]=-1;
+               return neg;
+           }
+       }
+       return ans;
     }
 }
