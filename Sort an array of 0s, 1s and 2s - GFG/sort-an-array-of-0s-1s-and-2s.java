@@ -10,32 +10,100 @@ import java.util.*;
 
 // Dutch National Flag Algorithm
 
+// class Solution
+// {
+//     public static void sort012(int a[], int n)
+//     {
+//         int low=0,mid=0,high=a.length-1;
+//         int temp=0;
+//         while(mid<=high) // < nahi hoga <= hi hoga
+//         {
+//             switch(a[mid])
+//             {
+//                 case 0:
+//                     temp=a[low];
+//                     a[low]=a[mid];
+//                     a[mid]=temp;
+//                     low++;
+//                     mid++;
+//                     break;
+//                 case 1:
+//                     mid++;
+//                     break;
+//                 case 2:
+//                     temp=a[mid];
+//                     a[mid]=a[high];
+//                     a[high]=temp;
+//                  //   mid++;       // mid++ nahi karna hai yahan pe
+//                     high--;
+//             }
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Solution
 {
     public static void sort012(int a[], int n)
     {
-        int low=0,mid=0,high=a.length-1;
-        int temp=0;
-        while(mid<=high) // < nahi hoga <= hi hoga
+        int l=0,m=0,r=n-1;
+        while(m<=r)
         {
-            switch(a[mid])
+            if(a[m]==0)
             {
-                case 0:
-                    temp=a[low];
-                    a[low]=a[mid];
-                    a[mid]=temp;
-                    low++;
-                    mid++;
-                    break;
-                case 1:
-                    mid++;
-                    break;
-                case 2:
-                    temp=a[mid];
-                    a[mid]=a[high];
-                    a[high]=temp;
-                 //   mid++;       // mid++ nahi karna hai yahan pe
-                    high--;
+                int temp=a[l];
+                a[l]=a[m];
+                a[m]=temp;
+                l++;
+                m++;
+
+            }
+            else if(a[m]==1)
+            {
+                m++;
+            }
+            else
+            {
+                int temp=a[m];
+                a[m]=a[r];
+                a[r]=temp;
+                r--;
             }
         }
     }
