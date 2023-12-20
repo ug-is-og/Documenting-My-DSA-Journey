@@ -25,6 +25,105 @@
 // }
 
 
+
+
+
+// Dp approach
+
+// import java.util.*;
+// class Solution {
+//     public int jump(int nums[]) {
+//         int dp[]=new int[nums.length];
+//         Arrays.fill(dp,-1);
+//         return helper(nums,dp,0);
+//     }
+//     public int helper(int nums[],int dp[],int index)
+//     {
+//         if(index==nums.length-1)
+//         {
+//             return 0;
+//         }
+//         if(nums[index]==0)
+//         {
+//             return 1000000;
+//         }
+//         if(dp[index]!=-1)
+//         {
+//             return dp[index];
+//         }
+//         int minCount=Integer.MAX_VALUE;
+//         for(int i=index+1;i<=Math.min(index+nums[index],nums.length-1);i++)
+//         {
+//             minCount=Math.min(minCount,1+helper(nums,dp,i));
+//         }
+//         return dp[index]=minCount;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+// Greedy Approach
+// not the best approach
+// TC : O(n^2) worst case
+
+// import java.util.*;
+// class Solution {
+//     public int jump(int nums[]) {
+//         int dest=nums.length-1;
+//         int minDest=Integer.MIN_VALUE;
+//         int count=0;
+//         while(dest!=0)
+//         {
+//             for(int i=dest-1;i>=0;i--)
+//             {
+//                 if(i+nums[i]>=dest)
+//                 {
+//                     minDest=i;
+//                 }
+//             }
+//             dest=minDest;
+//             count++;
+//         }
+//         return count;
+//     }
+// }
+
+
+
+
+
+
+// Best Greedy Approach
+// https://www.youtube.com/watch?v=wLPdkLM_BWo&t=584s
+
+// import java.util.*;
+// class Solution {
+//     public int jump(int nums[]) {
+//         int curr=0,farthest=0,jumps=0;
+//         for(int i=0;i<nums.length-1;i++)
+//         {
+//             farthest=Math.max(farthest,nums[i]+i);
+//             if(i==curr)
+//             {
+//                 curr=farthest;
+//                 jumps++;
+//             }
+//         }
+//         return jumps;
+//     }
+// }
+
+
+
+// O(N) approach
+// yeh apne aap se kiya tha
+
 import java.util.*;
 
 class Solution {
