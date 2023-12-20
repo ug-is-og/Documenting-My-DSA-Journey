@@ -102,60 +102,58 @@
 // Best Greedy Approach
 // https://www.youtube.com/watch?v=wLPdkLM_BWo&t=584s
 
-// import java.util.*;
-// class Solution {
-//     public int jump(int nums[]) {
-//         int curr=0,farthest=0,jumps=0;
-//         for(int i=0;i<nums.length-1;i++)
-//         {
-//             farthest=Math.max(farthest,nums[i]+i);
-//             if(i==curr)
-//             {
-//                 curr=farthest;
-//                 jumps++;
-//             }
-//         }
-//         return jumps;
-//     }
-// }
+import java.util.*;
+class Solution {
+    public int jump(int nums[]) {
+        int curr=0,farthest=0,jumps=0;
+        for(int i=0;i<nums.length-1;i++)
+        {
+            farthest=Math.max(farthest,nums[i]+i);
+            if(i==curr)
+            {
+                curr=farthest;
+                jumps++;
+            }
+        }
+        return jumps;
+    }
+}
 
 
 
 // O(N) approach
 // yeh apne aap se kiya tha
 
-import java.util.*;
+// import java.util.*;
 
-class Solution {
-    public int jump(int nums[]) {
-        int ans=0,jmp=0;
-        if(nums.length==1)
-            return 0;
-        for(int i=0;i<nums.length;i++)
-        {
-            int max=Integer.MIN_VALUE;
-            int newPos=Integer.MIN_VALUE;
-            jmp++;
-            int pos=i;
-            int jmpValue=nums[i];
-            if(nums[i]==0)
-            return -1;
-            if(jmpValue+pos>=nums.length-1)
-            {
-                ans=jmp;
-                break;
-            }
-            for(int j=pos+1;j<=pos+jmpValue;j++)
-            {
-                if(max<nums[j]+j) // yeh statement bhot crucial hai dhyan se samajhna 
-                // pehle main max< nums[j] karke check kar ra tha and woh work nahi karega , chahe toh karke dekhlo
-                {
-                    max=nums[j]+j;
-                    newPos=j;
-                }
-            }
-            i=newPos-1;
-        }
-        return ans;
-    }
-}
+// class Solution {
+//     public int jump(int nums[]) {
+//         int ans=0,jmp=0;
+//         if(nums.length==1)
+//             return 0;
+//         for(int i=0;i<nums.length;i++)
+//         {
+//             int max=Integer.MIN_VALUE;
+//             int newPos=Integer.MIN_VALUE;
+//             jmp++;
+//             int pos=i;
+//             int jmpValue=nums[i];
+//             if(jmpValue+pos>=nums.length-1)
+//             {
+//                 ans=jmp;
+//                 break;
+//             }
+//             for(int j=pos+1;j<=pos+jmpValue;j++)
+//             {
+//                 if(max<nums[j]+j) // yeh statement bhot crucial hai dhyan se samajhna 
+//                 // pehle main max< nums[j] karke check kar ra tha and woh work nahi karega , chahe toh karke dekhlo
+//                 {
+//                     max=nums[j]+j;
+//                     newPos=j;
+//                 }
+//             }
+//             i=newPos-1;
+//         }
+//         return ans;
+//     }
+// }
