@@ -1,25 +1,64 @@
 // Dutch National Flag Algorithm
 
+// class Solution {
+//     public void sortColors(int[] nums) {
+//         int low=0,mid=0,high=nums.length-1;
+//         int temp=0;
+//         while(mid<=high)
+//         {
+//             switch(nums[mid])
+//             {
+//                 case 0:
+//                 temp=nums[low];
+//                 nums[low]=nums[mid];
+//                 nums[mid]=temp;
+//                 low++;
+//                 mid++;
+//                 break;
+//                 case 1:
+//                 mid++;
+//                 break;
+//                 case 2:
+//                 temp=nums[mid];
+//                 nums[mid]=nums[high];
+//                 nums[high]=temp;
+//                 high--;
+//             }
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 class Solution {
     public void sortColors(int[] nums) {
         int low=0,mid=0,high=nums.length-1;
-        int temp=0;
         while(mid<=high)
         {
-            switch(nums[mid])
+            if(nums[mid]==0)
             {
-                case 0:
-                temp=nums[low];
+                int temp=nums[low];
                 nums[low]=nums[mid];
                 nums[mid]=temp;
                 low++;
                 mid++;
-                break;
-                case 1:
+            }
+            else if(nums[mid]==1)
+            {
                 mid++;
-                break;
-                case 2:
-                temp=nums[mid];
+            }
+            else
+            {
+                int temp=nums[mid];
                 nums[mid]=nums[high];
                 nums[high]=temp;
                 high--;
