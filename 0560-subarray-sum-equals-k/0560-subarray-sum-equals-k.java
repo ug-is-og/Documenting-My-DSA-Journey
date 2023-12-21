@@ -61,7 +61,9 @@
 
 
 
+// Based on
 
+// https://www.codingninjas.com/studio/problems/longest-subarray-with-sum-k_6682399?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTabValue=PROBLEM
 
 
 class Solution {
@@ -90,3 +92,4 @@ class Solution {
         return count;
     }
 }
+
