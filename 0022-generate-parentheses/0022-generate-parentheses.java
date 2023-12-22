@@ -82,15 +82,80 @@
 
 
 
+// class Solution {
+    
+//     public List<String> generateParenthesis(int n) 
+//     {
+//         List<String> ans=new ArrayList<>();
+//         helper(ans,n,n,"");
+//         return ans;
+//     }
+//     public void helper(List<String> ans,int ob,int cb,String temp)
+//     {
+//         if(ob==0&&cb==0)
+//         {
+//             ans.add(temp);
+//             return;
+//         }
+//         if(ob>0)
+//         {
+//             helper(ans,ob-1,cb,temp+"(");
+//         }
+//         if(cb>ob)
+//         {
+//             helper(ans,ob,cb-1,temp+")");
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Solution {
     
     public List<String> generateParenthesis(int n) 
     {
         List<String> ans=new ArrayList<>();
-        helper(ans,n,n,"");
+        helper(n,n,ans,"");
         return ans;
     }
-    public void helper(List<String> ans,int ob,int cb,String temp)
+    public void helper(int cb,int ob,List<String> ans,String temp)
     {
         if(ob==0&&cb==0)
         {
@@ -99,11 +164,11 @@ class Solution {
         }
         if(ob>0)
         {
-            helper(ans,ob-1,cb,temp+"(");
+            helper(cb,ob-1,ans,temp+'(');
         }
         if(cb>ob)
         {
-            helper(ans,ob,cb-1,temp+")");
+            helper(cb-1,ob,ans,temp+')');
         }
     }
 }
