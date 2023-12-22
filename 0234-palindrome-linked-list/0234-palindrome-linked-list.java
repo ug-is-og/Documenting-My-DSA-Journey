@@ -55,32 +55,84 @@
 // reversal of the linked list
 // O(1) SC and O(n) TC
 
+// class Solution {
+//     public boolean isPalindrome(ListNode head) {
+//         ListNode slow=head,fast=head;
+//         while(fast!=null&&fast.next!=null)
+//         {
+//             slow=slow.next;
+//             fast=fast.next.next;
+//         }
+//         ListNode prev=slow;
+//         slow=slow.next;
+//         prev.next=null;
+//         while(slow!=null)
+//         {
+//             ListNode temp=slow.next;
+//             slow.next=prev;
+//             prev=slow;
+//             slow=temp;
+//         }
+//         // now prev will be at the last node of linked list where second half pointers are reversed
+//         ListNode temp=head;
+//         while(prev!=null)
+//         {
+//             if(prev.val!=temp.val)
+//             return false;
+//             prev=prev.next;
+//             temp=temp.next;
+//         }
+//         return true;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Solution {
     public boolean isPalindrome(ListNode head) {
+        if(head.next==null) // bhai yeh edge cases please bhot dhyan se dekha karo
+        {
+            return true;
+        }
         ListNode slow=head,fast=head;
-        while(fast!=null&&fast.next!=null)
+        while(fast.next!=null&&fast.next.next!=null)
         {
             slow=slow.next;
             fast=fast.next.next;
         }
-        ListNode prev=slow;
-        slow=slow.next;
-        prev.next=null;
-        while(slow!=null)
+        ListNode temp1=slow.next;
+        slow.next=null;
+        ListNode temp2=temp1.next;
+        temp1.next=slow;
+        while(temp2!=null)
         {
-            ListNode temp=slow.next;
-            slow.next=prev;
-            prev=slow;
-            slow=temp;
+            ListNode temp3=temp2.next;
+            temp2.next=temp1;
+            temp1=temp2;
+            temp2=temp3;
         }
-        // now prev will be at the last node of linked list where second half pointers are reversed
-        ListNode temp=head;
-        while(prev!=null)
+        while(head!=null)
         {
-            if(prev.val!=temp.val)
+            if(head.val!=temp1.val)
             return false;
-            prev=prev.next;
-            temp=temp.next;
+            head=head.next;
+            temp1=temp1.next;
         }
         return true;
     }
