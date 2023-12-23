@@ -62,36 +62,81 @@
 
 
 
+// class Solution {
+//     public int singleNumber(int[] nums) {
+//         int bitFreq[]=new int[33]; 
+//         for(int i=0;i<nums.length;i++)
+//         {
+//             long num=nums[i];// long ka khaas dhyan dena
+//             if(num<0)
+//             {
+//                 bitFreq[32]++;
+//                 num=num*-1; // deal with only magnitude part
+//             }
+//             int counter=0;
+//             while(num!=0)
+//             {
+//                 long temp=num&1;
+//                 if(temp==1)
+//                 bitFreq[counter]++;
+//                 num=num>>1;
+//                 counter++;
+//             }
+//         }
+//         long ans=0; // long ka khaas dhyan dena
+//         for(int i=0;i<=31;i++)
+//         {
+//             ans=ans+(long)(Math.pow(2,i)*(bitFreq[i]%3));
+//         }
+//         if(bitFreq[32]%3!=0)
+//         {
+//             ans=ans*-1;
+//         }
+//         return (int)ans;
+//     }
+// }
+
+// Next Target is to understand this solution and do it yourself
+// https://leetcode.com/problems/single-number-ii/solutions/3714928/bit-manipulation-c-java-python-beginner-friendly
+
+
+
+// Pepcoding optimized approach for this question
+
 class Solution {
     public int singleNumber(int[] nums) {
-        int bitFreq[]=new int[33]; 
+        int negCount=0; // count the negative numbers
+        long tnp=Long.MAX_VALUE;
+        long tnp1=0,tnp2=0;
         for(int i=0;i<nums.length;i++)
         {
-            long num=nums[i];// long ka khaas dhyan dena
-            if(num<0)
+            long num=nums[i];
+            if(nums[i]<0)
             {
-                bitFreq[32]++;
-                num=num*-1; // deal with only magnitude part
+                num=nums[i]*-1;
+                negCount++;
             }
-            int counter=0;
-            while(num!=0)
-            {
-                long temp=num&1;
-                if(temp==1)
-                bitFreq[counter]++;
-                num=num>>1;
-                counter++;
-            }
+            long cwtn=tnp&num;
+            long cwtnp1=tnp1&num;
+            long cwtnp2=tnp2&num;
+            
+            tnp=tnp&~(cwtn);
+            tnp1=tnp1|cwtn;
+            
+            tnp1=tnp1&~(cwtnp1);
+            tnp2=tnp2|cwtnp1;
+
+            tnp2=tnp2&~(cwtnp2);
+            tnp=tnp|cwtnp2;
         }
-        long ans=0; // long ka khaas dhyan dena
-        for(int i=0;i<=31;i++)
+        if(negCount%3!=0)
         {
-            ans=ans+(long)(Math.pow(2,i)*(bitFreq[i]%3));
+            tnp1=tnp1*-1;
         }
-        if(bitFreq[32]%3!=0)
-        {
-            ans=ans*-1;
-        }
-        return (int)ans;
+        return (int)tnp1;
     }
 }
+
+
+
+
