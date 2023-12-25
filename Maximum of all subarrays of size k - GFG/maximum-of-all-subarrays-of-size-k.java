@@ -50,31 +50,99 @@ class Main
 
 //User function template for JAVA
 
+// class Solution
+// {
+//     //Function to find maximum of each subarray of size k.
+//     static ArrayList <Integer> max_of_subarrays(int arr[], int n, int k)
+//     {
+//         ArrayList<Integer> ans=new ArrayList<>();
+//         Deque<Integer> dq=new LinkedList<>();
+//         int i=0,j=0;
+//         while(j<n)
+//         {
+//             while(dq.size()>0&&arr[dq.getLast()]<arr[j])
+//             {
+//                 dq.removeLast();
+//             }
+//             dq.addLast(j);
+//             if(j-i+1==k)
+//             {
+//                 ans.add(arr[dq.getFirst()]);
+//                 if(i==dq.getFirst())
+//                 {
+//                     dq.removeFirst();
+//                 }
+//                 i++;
+//             }
+//             j++;
+//         }
+//         return ans;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Solution
 {
     //Function to find maximum of each subarray of size k.
     static ArrayList <Integer> max_of_subarrays(int arr[], int n, int k)
     {
+        Deque<Integer> dq=new ArrayDeque<>();
         ArrayList<Integer> ans=new ArrayList<>();
-        Deque<Integer> dq=new LinkedList<>();
         int i=0,j=0;
-        while(j<n)
+        while(j<arr.length)
         {
-            while(dq.size()>0&&arr[dq.getLast()]<arr[j])
+            while(!dq.isEmpty()&&arr[dq.getLast()]<arr[j])
             {
                 dq.removeLast();
             }
-            dq.addLast(j);
-            if(j-i+1==k)
+            dq.add(j);
+            if(j-i+1<k)
+            {
+                j++;
+                continue;
+            }
+            else
             {
                 ans.add(arr[dq.getFirst()]);
-                if(i==dq.getFirst())
+                if(dq.getFirst()==i)
                 {
                     dq.removeFirst();
                 }
                 i++;
+                j++;
             }
-            j++;
         }
         return ans;
     }
