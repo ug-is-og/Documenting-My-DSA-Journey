@@ -82,18 +82,50 @@
 
 // upar wali approach ko thoda sa aur optimize karenge bas ham
 
+// public class Solution {
+//     public boolean hasCycle(ListNode head) {
+//         ListNode slow=head;
+//         ListNode fast=head;
+//         while(fast!=null&&fast.next!=null) // pehli condition false ho gayi toh agli condition
+//         // check hi nahi hogi, this is the importance of order here
+//         {
+//             slow=slow.next;
+//             fast=fast.next.next;
+//             if(slow==fast) // yeh condition just upar likhne mein dikkat thi kyunki loop mein ghuste hi condition true ho ja ri bina traverse kare ...pehle aur usko
+//             // sahi karne ke chakkar mein aur zaada complications kar di thi humne
+//             return true;
+//         }
+//         return false;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        ListNode slow=head;
-        ListNode fast=head;
-        while(fast!=null&&fast.next!=null) // pehli condition false ho gayi toh agli condition
-        // check hi nahi hogi, this is the importance of order here
+        ListNode slow=head,fast=head;
+        while(fast!=null&&fast.next!=null)
         {
-            slow=slow.next;
             fast=fast.next.next;
-            if(slow==fast) // yeh condition just upar likhne mein dikkat thi kyunki loop mein ghuste hi condition true ho ja ri bina traverse kare ...pehle aur usko
-            // sahi karne ke chakkar mein aur zaada complications kar di thi humne
-            return true;
+            slow=slow.next;
+            if(slow==fast)
+            {
+                return true;
+            }
         }
         return false;
     }
