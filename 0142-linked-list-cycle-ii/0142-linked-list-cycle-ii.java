@@ -21,29 +21,72 @@
 // https://drive.google.com/file/d/1TuxZyIrerACYtvm6z8b1bgHkdwv2Fph2/view?usp=sharing
 // https://youtu.be/QfbOhn0WZ88
 
+// public class Solution {
+//     public ListNode detectCycle(ListNode head) {
+//         ListNode slow=head;
+//         ListNode fast=head;
+//         boolean found=false;
+//         while(fast!=null&&fast.next!=null)
+//         {
+//             slow=slow.next;
+//             fast=fast.next.next;
+//             if(slow==fast)
+//             {
+//                 found=true;
+//                 break;
+//             }
+//         }
+//         if(found==false)
+//         return null;
+//         ListNode entry=head;
+//         while(entry!=slow)
+//         {
+//             slow=slow.next;
+//             entry=entry.next;
+//         }
+//         return entry;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        ListNode slow=head;
-        ListNode fast=head;
-        boolean found=false;
+        // first of all identify if there's a cycle
+        ListNode slow=head,fast=head;
+        boolean ans=false;
         while(fast!=null&&fast.next!=null)
         {
             slow=slow.next;
             fast=fast.next.next;
             if(slow==fast)
             {
-                found=true;
+                ans=true;
                 break;
             }
         }
-        if(found==false)
-        return null;
-        ListNode entry=head;
-        while(entry!=slow)
+        if(ans==false)
+        {
+            return null;
+        }
+        while(slow!=head)
         {
             slow=slow.next;
-            entry=entry.next;
+            head=head.next;
         }
-        return entry;
+        return slow;
     }
 }
