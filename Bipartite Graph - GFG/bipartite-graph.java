@@ -34,47 +34,124 @@ class GFG
 }
 // } Driver Code Ends
 
+// class Solution
+// {
+//     public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
+//     {
+//         int visited[]=new int[V];
+//         Arrays.fill(visited,-1);
+//         boolean ans=true;
+//         for(int i=0;i<V;i++)
+//         {
+//             if(visited[i]==-1)
+//             {
+//                 visited[i]=0; // for storing colors as well as keeping track that it ha sbeen visited
+//                 ans=ans&&dfs(visited,adj,i,0); // 0 color bheja source node ka
+//             }
+//         }
+//         return ans;
+//     }
+//     public boolean dfs(int visited[],ArrayList<ArrayList<Integer>> adj,int source,int color)
+//     {
+//         int tempColor=0; // ab source ka baad jo bhi nodes hai unke liye tempColor
+//         if(color==0) 
+//         {
+//             tempColor=1;
+//         }
+//         boolean ans=true;
+//         for(int i=0;i<adj.get(source).size();i++)
+//         {
+//             if(visited[adj.get(source).get(i)]==-1)
+//             {
+//                 visited[adj.get(source).get(i)]=tempColor;
+//                 ans=ans&&dfs(visited,adj,adj.get(source).get(i),tempColor);
+//             }
+//             else
+//             {
+//                 if(visited[adj.get(source).get(i)]!=tempColor)
+//                 {
+//                     return false;
+//                 }
+//             }
+//         }
+//         return ans;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Solution
 {
     public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
     {
         int visited[]=new int[V];
         Arrays.fill(visited,-1);
-        boolean ans=true;
         for(int i=0;i<V;i++)
         {
-            if(visited[i]==-1)
+            if(visited[i]==-1&&!dfsHelper(i,adj,visited,1))
             {
-                visited[i]=0; // for storing colors as well as keeping track that it ha sbeen visited
-                ans=ans&&dfs(visited,adj,i,0); // o color bheja source node ka
+                return false;
             }
         }
-        return ans;
+        return true;
     }
-    public boolean dfs(int visited[],ArrayList<ArrayList<Integer>> adj,int source,int color)
+    public boolean dfsHelper(int i,ArrayList<ArrayList<Integer>> adj,int visited[],int color)
     {
-        int tempColor=0; // ab source ka baad jo bhi nodes hai unke liye tempColor
-        if(color==0) 
+        visited[i]=color;
+        int childColor=-1;
+        if(visited[i]==1)
         {
-            tempColor=1;
+            childColor=0;
         }
-        boolean ans=true;
-        for(int i=0;i<adj.get(source).size();i++)
+        else
         {
-            if(visited[adj.get(source).get(i)]==-1)
+            childColor=1;
+        }
+        for(int j=0;j<adj.get(i).size();j++)
+        {
+            if(visited[adj.get(i).get(j)]==childColor)
             {
-                visited[adj.get(source).get(i)]=tempColor;
-                ans=ans&&dfs(visited,adj,adj.get(source).get(i),tempColor);
+                continue;
             }
-            else
+            else if(visited[adj.get(i).get(j)]==-1)
             {
-                if(visited[adj.get(source).get(i)]!=tempColor)
+                if(!dfsHelper(adj.get(i).get(j),adj,visited,childColor))
                 {
-                    //System.out.println(tempColor+" "+source+" "+adj.get(source).get(i));
                     return false;
                 }
             }
+            else
+            {
+                return false;
+            }
         }
-        return ans;
+        return true;
     }
 }
