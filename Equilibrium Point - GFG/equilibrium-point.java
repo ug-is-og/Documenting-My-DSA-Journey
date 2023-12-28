@@ -64,18 +64,33 @@ class Main {
 
 
 
+// a better code kyunki zabardasti ki conditions nahi peli
 
 
-
-
-
-
-
-
-
-
-
-
+// class Solution {
+    
+//     // a: input array
+//     // n: size of array
+//     // Function to find equilibrium point in the array.
+//     public static int equilibriumPoint(long arr[], int n) {
+//         long prefixSum[]=new long[n];
+//         prefixSum[0]=arr[0];
+//         for(int i=1;i<arr.length;i++)
+//         {
+//             prefixSum[i]=arr[i]+prefixSum[i-1];
+//         }
+//         long temp=0;
+//         for(int i=0;i<n;i++)
+//         {
+//             if(prefixSum[n-1]-prefixSum[i]==temp)
+//             {
+//                 return i+1;
+//             }
+//             temp=prefixSum[i];
+//         }
+//         return -1;
+//     }
+// }
 
 
 
@@ -112,27 +127,32 @@ class Main {
 
 
 class Solution {
-
     
     // a: input array
     // n: size of array
     // Function to find equilibrium point in the array.
     public static int equilibriumPoint(long arr[], int n) {
         long prefixSum[]=new long[n];
-        prefixSum[0]=arr[0];
-        for(int i=1;i<arr.length;i++)
-        {
-            prefixSum[i]=arr[i]+prefixSum[i-1];
-        }
-        long temp=0;
+        long suffixSum[]=new long[n];
         for(int i=0;i<n;i++)
         {
-            if(prefixSum[n-1]-prefixSum[i]==temp)
+            if(i==0)
             {
-                return i+1;
+                prefixSum[i]=arr[i];
             }
-            temp=prefixSum[i];
+            else
+            {
+                prefixSum[i]=prefixSum[i-1]+arr[i];
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(prefixSum[i]-arr[i]==prefixSum[n-1]-prefixSum[i])
+            {
+               return i+1;
+            }
         }
         return -1;
     }
 }
+
