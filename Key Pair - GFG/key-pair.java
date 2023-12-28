@@ -35,35 +35,96 @@ public class Main {
 //User function Template for Java
 
 
+// class Solution {
+//     boolean hasArrayTwoCandidates(int arr[], int n, int x) {
+//         // using 2 sum approach
+//         // Arrays.sort(arr);
+//         // int l=0,r=n-1;
+//         // while(l<r)
+//         // {
+//         //     int tempSum=arr[l]+arr[r];
+//         //     if(tempSum==x)
+//         //     return true;
+//         //     else if(tempSum>x)
+//         //     {
+//         //         r--;
+//         //     }
+//         //     else
+//         //     {
+//         //         l++;
+//         //     }
+//         // }
+//         // return false;
+        
+//         // using hashMap approach
+        
+//         HashMap<Integer,Integer> map=new HashMap<>();
+//         for(int a:arr)
+//         {
+//             if(map.containsKey(x-a))
+//             return true;
+//             map.put(a,1);
+//         }
+//         return false;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// SC O(n) and TC O(n)
+
 class Solution {
     boolean hasArrayTwoCandidates(int arr[], int n, int x) {
-        // using 2 sum approach
-        // Arrays.sort(arr);
-        // int l=0,r=n-1;
-        // while(l<r)
-        // {
-        //     int tempSum=arr[l]+arr[r];
-        //     if(tempSum==x)
-        //     return true;
-        //     else if(tempSum>x)
-        //     {
-        //         r--;
-        //     }
-        //     else
-        //     {
-        //         l++;
-        //     }
-        // }
-        // return false;
-        
-        // using hashMap approach
-        
-        HashMap<Integer,Integer> map=new HashMap<>();
-        for(int a:arr)
+        HashSet<Integer> set=new HashSet<>();
+        for(int i=0;i<n;i++)
         {
-            if(map.containsKey(x-a))
-            return true;
-            map.put(a,1);
+            if(set.contains(x-arr[i]))
+            {
+                return true;
+            }
+            set.add(arr[i]);
         }
         return false;
     }
