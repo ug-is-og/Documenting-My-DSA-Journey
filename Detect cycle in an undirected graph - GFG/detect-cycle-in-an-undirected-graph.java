@@ -197,32 +197,121 @@ class GFG {
 
 // lets go with DFS approach first
 
+// class Solution {
+//     // Function to detect cycle in an undirected graph.
+//     public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+//         boolean visited[]=new boolean[V];
+//         for(int i=0;i<V;i++)
+//         {
+//             if(!visited[i]&&dfs(V,adj,visited,i,-1))
+//             {
+//                 return true;
+//             }
+//         }
+//         return false;
+//     }
+//     public boolean dfs(int V,ArrayList<ArrayList<Integer>> adj,boolean visited[],int child,int parent)
+//     {
+//         visited[child]=true;
+//         for(int i=0;i<adj.get(child).size();i++)
+//         {
+//             int node=adj.get(child).get(i);
+//             if(visited[node]&&node!=parent)
+//             {
+//                 return true;
+//             }
+//             else if(!visited[node]&&dfs(V,adj,visited,node,child))
+//             {
+//                 return true;
+//             }
+//         }
+//         return false;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let's go ahead with bfs approach now
+
+class node{
+    int child;
+    int parent;
+    public node(int child,int parent)
+    {
+        this.child=child;
+        this.parent=parent;
+    }
+}
+
 class Solution {
     // Function to detect cycle in an undirected graph.
     public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+        Queue<node> q=new LinkedList<>();
         boolean visited[]=new boolean[V];
         for(int i=0;i<V;i++)
         {
-            if(!visited[i]&&dfs(V,adj,visited,i,-1))
+            if(!visited[i])
             {
-                return true;
+                visited[i]=true;
+                q.add(new node(i,-1));
+                if(bfs(visited,V,adj,q))
+                {
+                    return true;
+                }
             }
         }
         return false;
     }
-    public boolean dfs(int V,ArrayList<ArrayList<Integer>> adj,boolean visited[],int child,int parent)
+    public boolean bfs(boolean visited[],int V,ArrayList<ArrayList<Integer>> adj,Queue<node> q)
     {
-        visited[child]=true;
-        for(int i=0;i<adj.get(child).size();i++)
+        while(!q.isEmpty())
         {
-            int node=adj.get(child).get(i);
-            if(visited[node]&&node!=parent)
+            node temp=q.remove();
+            for(int i=0;i<adj.get(temp.child).size();i++)
             {
-                return true;
-            }
-            else if(!visited[node]&&dfs(V,adj,visited,node,child))
-            {
-                return true;
+                int connectedNode=adj.get(temp.child).get(i);
+                if(visited[connectedNode]&&connectedNode!=temp.parent)
+                {
+                    return true;
+                }
+                else if(!visited[connectedNode])
+                {
+                    visited[connectedNode]=true;
+                    q.add(new node(connectedNode,temp.child));
+                }
             }
         }
         return false;
