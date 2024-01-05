@@ -211,26 +211,63 @@
 
 // most optimal approach
 
+// class Solution {
+//     public int lengthOfLIS(int[] nums) {
+//         int dp[]=new int[nums.length];
+//         int globalMax=1;
+//         Arrays.fill(dp,1);
+//         for(int i=1;i<dp.length;i++)
+//         {
+//             int max=Integer.MIN_VALUE;
+//             for(int j=0;j<i;j++)
+//             {
+//                 if(nums[j]<nums[i])
+//                 {
+//                     max=Math.max(max,dp[j]);
+//                 }
+//             }
+//             if(max!=Integer.MIN_VALUE)
+//             dp[i]=max+1;
+//             else
+//             dp[i]=1;
+//             System.out.println(dp[i]);
+//             globalMax=Math.max(globalMax,dp[i]);
+//         }
+//         return globalMax;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Solution {
     public int lengthOfLIS(int[] nums) {
         int dp[]=new int[nums.length];
-        int globalMax=1;
-        Arrays.fill(dp,1);
-        for(int i=1;i<dp.length;i++)
+        int globalMax=0;
+        for(int i=0;i<nums.length;i++)
         {
-            int max=Integer.MIN_VALUE;
+            int localMax=0;
             for(int j=0;j<i;j++)
             {
-                if(nums[j]<nums[i])
+                if(nums[i]>nums[j])
                 {
-                    max=Math.max(max,dp[j]);
+                    localMax=Math.max(localMax,dp[j]);
                 }
             }
-            if(max!=Integer.MIN_VALUE)
-            dp[i]=max+1;
-            else
-            dp[i]=1;
-            System.out.println(dp[i]);
+            dp[i]=localMax+1;
             globalMax=Math.max(globalMax,dp[i]);
         }
         return globalMax;
